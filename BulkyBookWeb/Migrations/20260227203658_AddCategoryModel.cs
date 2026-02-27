@@ -5,7 +5,7 @@
 namespace BulkyBookWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCategoryToDB : Migration
+    public partial class AddCategoryModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,13 +14,13 @@ namespace BulkyBookWeb.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryIdentification = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryIdentification);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
         }
 

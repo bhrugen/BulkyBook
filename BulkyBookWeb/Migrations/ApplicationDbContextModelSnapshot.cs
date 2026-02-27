@@ -23,17 +23,17 @@ namespace BulkyBookWeb.Migrations
 
             modelBuilder.Entity("BulkyBookWeb.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryIdentification")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryIdentification"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CategoryIdentification");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
