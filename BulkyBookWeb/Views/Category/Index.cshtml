@@ -29,8 +29,8 @@
                             <td class="fw-medium" style="color: #1e293b;">@obj.Name</td>
                             <td><span class="badge bg-light text-dark border">@obj.DisplayOrder</span></td>
                             <td class="text-end">
-                                <a href="#" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square me-1"></i>Edit</a>
-                                <a href="#" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash me-1"></i>Delete</a>
+                                <a asp-action="Update" asp-route-id="@obj.Id" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square me-1"></i>Edit</a>
+                                <a asp-action="Delete" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash me-1"></i>Delete</a>
                             </td>
                         </tr>
                     }
