@@ -29,7 +29,7 @@ namespace BulkyBookWeb.Controllers
         {
             if (!String.IsNullOrEmpty(category.Name) && _context.Categories.Any(c => c.Name.ToLower() == category.Name.ToLower()))
             {
-                ModelState.AddModelError("", "Caegory name already exists!");
+                ModelState.AddModelError("", "Category name already exists!");
             }
 
             if (ModelState.IsValid)
