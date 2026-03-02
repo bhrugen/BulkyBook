@@ -23,6 +23,7 @@ namespace BulkyBookWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionName("Create")]
         public IActionResult CreatePOST(Category category)
         {
