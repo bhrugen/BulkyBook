@@ -1,9 +1,41 @@
 ﻿@using BulkyBookWeb.Models
 @model List<Category>
 
-<h1>Category List</h1>
-
-@foreach(var category in Model)
-{
-	<p> @category.Name </p>
-}
+<div class="container-fluid py-4">
+    <div class="card border shadow-sm overflow-hidden">
+        <div class="card-header text-white py-3 px-4 d-flex align-items-center justify-content-between" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+            <div>
+                <h5 class="mb-0 fw-bold"><i class="bi bi-grid me-2"></i>Categories</h5>
+                <p class="mb-0 small" style="color: #1DB954;">Manage your product categories</p>
+            </div>
+            <a asp-controller="Category" asp-action="Create" class="btn btn-sm btn-outline-light fw-semibold d-inline-flex align-items-center gap-1">
+                <i class="bi bi-plus-lg"></i> New Category
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table class="table-styled">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Display Order</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample Row - Students will replace with @@foreach loop -->
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            <td class="fw-medium" style="color: #1e293b;">@obj.Name</td>
+                            <td><span class="badge bg-light text-dark border">@obj.DisplayOrder</span></td>
+                            <td class="text-end">
+                                <a href="#" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square me-1"></i>Edit</a>
+                                <a href="#" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash me-1"></i>Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
