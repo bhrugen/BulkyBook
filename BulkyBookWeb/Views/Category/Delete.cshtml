@@ -7,25 +7,22 @@
     </a>
     <div class="card border shadow-sm overflow-hidden">
         <div class="card-header text-white py-3 px-4" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
-            <h5 class="mb-0 fw-bold"><i class="bi bi-plus-lg me-2"></i>Update Category</h5>
-            <p class="mb-0 small" style="color: #1DB954;">Update category for your products</p>
+            <h5 class="mb-0 fw-bold"><i class="bi bi-plus-lg me-2"></i>Delete Category</h5>
+            <p class="mb-0 small" style="color: #1DB954;">Delete category for your products</p>
         </div>
         <div class="card-body p-4">
-            <form method="post" asp-action="Update">
-                <input asp-for="Id" hidden/>
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <form method="post" asp-action="Delete">
+                <input asp-for="Id" hidden />
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label fw-semibold small">Category Name</label>
-                    <input type="text" name="Name" asp-for="Name" class="form-control" placeholder="Enter category name" />
-                    <span asp-validation-for="Name" class="text-danger small"></span>
+                    <input type="text" name="Name" readonly asp-for="Name" class="form-control" placeholder="Enter category name" />
                 </div>
                 <div class="mb-3">
                     <label asp-for="DisplayOrder" class="form-label fw-semibold small">Display Order</label>
-                    <input type="number" asp-for="DisplayOrder" name="DisplayOrder" class="form-control" placeholder="Enter display order" />
-                    <span asp-validation-for="DisplayOrder" class="text-danger small"></span>
+                    <input type="number" asp-for="DisplayOrder" readonly name="DisplayOrder" class="form-control" placeholder="Enter display order" />
                 </div>
                 <div class="d-flex gap-2 mt-4">
-                    <button type="submit" class="btn btn-accent fw-semibold">Update Category</button>
+                    <button type="submit" class="btn btn-danger fw-semibold">Delete Category</button>
                     <a asp-controller="Category" asp-action="Index" class="btn btn-light fw-medium">Cancel</a>
                 </div>
             </form>

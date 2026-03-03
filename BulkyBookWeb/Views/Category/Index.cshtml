@@ -2,6 +2,11 @@
 @model List<Category>
 
 <div class="container-fluid py-4">
+
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">@TempData["success"]</div>
+    }
     <div class="card border shadow-sm overflow-hidden">
         <div class="card-header text-white py-3 px-4 d-flex align-items-center justify-content-between" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
             <div>
@@ -30,7 +35,7 @@
                             <td><span class="badge bg-light text-dark border">@obj.DisplayOrder</span></td>
                             <td class="text-end">
                                 <a asp-action="Update" asp-route-id="@obj.Id" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square me-1"></i>Edit</a>
-                                <a asp-action="Delete" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash me-1"></i>Delete</a>
+                                <a asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash me-1"></i>Delete</a>
                             </td>
                         </tr>
                     }
