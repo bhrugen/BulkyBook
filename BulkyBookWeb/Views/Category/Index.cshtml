@@ -3,10 +3,7 @@
 
 <div class="container-fluid py-4">
 
-    @if (TempData["success"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">@TempData["success"]</div>
-    }
+   <partial name="_Notification"/>
     <div class="card border shadow-sm overflow-hidden">
         <div class="card-header text-white py-3 px-4 d-flex align-items-center justify-content-between" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
             <div>
