@@ -1,9 +1,17 @@
 ﻿@if (TempData["success"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">@TempData["success"]</div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        toastr.success('@TempData["success"]');
+</script>
 }
 
 @if (TempData["error"] != null)
 {
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">@TempData["error"]</div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        toastr.error('@TempData["success"]');
+    </script>
 }
