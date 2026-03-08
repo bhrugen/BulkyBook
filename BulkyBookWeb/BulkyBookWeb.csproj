@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\" />
+    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
