@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace BulkyBook.Models
@@ -41,6 +42,10 @@ namespace BulkyBook.Models
         [Display(Name = "Price for  100+")]
         [Range(1, 1000)]
         public double Price100 { get; set; }
+
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
 
         [ValidateNever]
         [Display(Name = "Product Image")]
