@@ -29,10 +29,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         [ActionName("Create")]
         public async Task<IActionResult> CreatePOST(Product product)
         {
-            if (!String.IsNullOrEmpty(product.Name) && !await _productService.IsProductNameUniqueAsync(product.Name))
-            {
-                ModelState.AddModelError("", "Product name already exists!");
-            }
 
             if (ModelState.IsValid)
             {
@@ -64,11 +60,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         [ActionName("Update")]
         public async Task<IActionResult> UpdatePOST(Product product)
         {
-            if (!String.IsNullOrEmpty(product.Name) && 
-                !await _productService.IsProductNameUniqueAsync(product.Name,product.Id))
-            {
-                ModelState.AddModelError("", "Product name already exists!");
-            }
 
             if (ModelState.IsValid)
             {
