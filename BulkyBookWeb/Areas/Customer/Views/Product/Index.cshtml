@@ -15,26 +15,13 @@
             </a>
         </div>
         <div class="table-responsive">
-            <table class="table-styled">
+            <table id="tblData" class="table-styled">
                 <thead>
                     <tr>
                         <th>Product Name</th>
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Sample Row - Students will replace with @@foreach loop -->
-                    @foreach (var obj in Model)
-                    {
-                        <tr>
-                            <td class="fw-medium" style="color: #1e293b;">@obj.Title</td>
-                            <td class="text-end">
-                                <a asp-action="Update" asp-route-id="@obj.Id" class="btn btn-sm btn-outline-success me-1"><i class="bi bi-pencil-square me-1"></i>Edit</a>
-                                <a asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash me-1"></i>Delete</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
             </table>
         </div>
     </div>
