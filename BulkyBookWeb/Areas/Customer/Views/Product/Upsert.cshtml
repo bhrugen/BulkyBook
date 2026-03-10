@@ -1,0 +1,82 @@
+﻿@using BulkyBook.Models
+@model Product
+
+<div class="container-fluid py-3">
+    <a asp-action="Index" class="text-decoration-none text-secondary small fw-medium d-inline-flex align-items-center gap-1 mb-3">
+        <i class="bi bi-arrow-left"></i> Back to products
+    </a>
+    <div class="card border shadow-sm overflow-hidden">
+        <div class="card-header text-white py-3 px-4" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+            <h5 class="mb-0 fw-bold"><i class="bi bi-plus-lg me-2"></i>Create Product</h5>
+            <p class="mb-0 small" style="color: #1DB954;">Add a new product for your products</p>
+        </div>
+        <div class="card-body p-4">
+            <form method="post">
+                <div class="col-lg-8">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="Title" class="form-label fw-semibold small"></label>
+                            <input type="text" asp-for="Title" class="form-control" placeholder="Enter product name" />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Description" class="form-label fw-semibold small"></label>
+                            <input type="text" asp-for="Description" class="form-control" placeholder="Enter product desc" />
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+                        <div class="col-6">
+                            <label asp-for="ISBN" class="form-label fw-semibold small"></label>
+                            <input type="text" asp-for="ISBN" class="form-control" placeholder="Enter ISBN" />
+                            <span asp-validation-for="ISBN" class="text-danger small"></span>
+                        </div>
+                        <div class="col-6">
+                            <label asp-for="Author" class="form-label fw-semibold small"></label>
+                            <input type="text" asp-for="Author" class="form-control" placeholder="Enter author name" />
+                            <span asp-validation-for="Author" class="text-danger small"></span>
+                        </div>
+                    </div>
+                    <div class="border rounded p-3 mt-3 bg-light">
+                        <p class="text-uppercase fw-semibold text-secondary mb-3" style="font-size: 0.65rem; letter-spacing: 0.1em;">Pricing</p>
+                        <div class="row g-3">
+                            <div class="col-6 col-md-3">
+                                <label asp-for="ListPrice" class="form-label fw-semibold small"></label>
+                                <input type="text" asp-for="ListPrice" class="form-control" />
+                                <span asp-validation-for="ListPrice" class="text-danger small"></span>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label asp-for="Price" class="form-label fw-semibold small"></label>
+                                <input type="text" asp-for="Price" class="form-control"  />
+                                <span asp-validation-for="Price" class="text-danger small"></span>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label asp-for="Price50" class="form-label fw-semibold small"></label>
+                                <input type="text" asp-for="Price50" class="form-control" />
+                                <span asp-validation-for="Price50" class="text-danger small"></span>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label asp-for="Price100" class="form-label fw-semibold small"></label>
+                                <input type="text" asp-for="Price100" class="form-control" />
+                                <span asp-validation-for="Price100" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <!--image-->
+                </div>
+                
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-accent fw-semibold">Create Product</button>
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-light fw-medium">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+
+}
