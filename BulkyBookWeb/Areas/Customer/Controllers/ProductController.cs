@@ -30,7 +30,10 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     Text=c.Name,
                     Value=c.Id.ToString()
                 });
-            return View(categoryList);
+
+            ViewData["categoryList"] = categoryList;
+
+            return View();
         }
 
         [HttpPost]
