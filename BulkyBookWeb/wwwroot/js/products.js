@@ -5,7 +5,7 @@ $(document).ready(function () {
 })
 
 productDataTable= $('#tblData').DataTable({
-    ajax: '/product/getall',
+    ajax: '/admin/product/getall',
     columns: [
         { data: 'title', "width": "25%" },
         { data: 'isbn', "width": "15%" },
@@ -19,10 +19,10 @@ productDataTable= $('#tblData').DataTable({
             data: 'id', "width": "25%", "render": function (data)
             {
                 return `<div class="d-flex gap-2 justify-content-end">
-                            <a href="/product/upsert?id=${data}" class="btn btn-sm btn-outline-success">
+                            <a href="/admin/product/upsert?id=${data}" class="btn btn-sm btn-outline-success">
                                  <i class="bi bi-pencil-square"></i> Edit
                             </a>
-                              <a onclick="Delete('/product/delete/${data}')" class="btn btn-sm btn-outline-danger">
+                              <a onclick="Delete('/admin/product/delete/${data}')" class="btn btn-sm btn-outline-danger">
                                  <i class="bi bi-trash"></i> Delete
                             </a>
                         </div > `;
