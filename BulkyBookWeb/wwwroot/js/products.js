@@ -38,13 +38,17 @@ function Delete(url) {
     }).then((result) => {
         if (result.isConfirmed) {
 
-
-
-            Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function (data) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            })
         }
     });
 }

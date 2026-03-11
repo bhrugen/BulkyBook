@@ -145,7 +145,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             //delete product image if that exists
             if (!string.IsNullOrEmpty(productToBeDeleted.ImageUrl))
             {
-                var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
+                var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\','/'));
 
                 if (System.IO.File.Exists(imagePath))
                 {
