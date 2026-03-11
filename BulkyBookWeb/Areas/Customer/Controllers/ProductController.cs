@@ -45,14 +45,28 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         [ActionName("Upsert")]
         public async Task<IActionResult> UpsertPOST(Product product, IFormFile? file)
         {
-
+           
             if (ModelState.IsValid)
             {
-               // await _productService.CreateProductAsync(product);
+                await _productService.CreateProductAsync(product);
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+                var categories = await _categoryService.GetAllCategoriesAsync();
+
+                ProductVM productVM = new()
+                {
+                    CategoryList = categories.Select(c => new SelectListItem
+                    {
+                        Text = c.Name,
+                        Value = c.Id.ToString()
+                    })
+                };
+                return View(productVM);
+            }
+
         }
 
         
