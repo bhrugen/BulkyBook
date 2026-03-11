@@ -27,7 +27,8 @@
                         </div>
                         <div class="col-12">
                             <label asp-for="Product.Description" class="form-label fw-semibold small"></label>
-                            <input type="text" asp-for="Product.Description" class="form-control" placeholder="Enter product desc" />
+                            <textarea asp-for="Product.Description" hidden class="form-control" placeholder="Enter product desc" ></textarea>
+                                <div id="quill-editor" style="height: 200px;"></div>
                             <span asp-validation-for="Product.Description" class="text-danger small"></span>
                         </div>
                         <div class="col-6">
@@ -115,5 +116,30 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial"/>
+
+
+    <!-- Include stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+
+    <!-- Create the editor container -->
+    
+
+    <!-- Include the Quill library -->
+
+    <!-- Initialize Quill editor -->
+    <script>
+        const quill = new Quill('#quill-editor', {
+        theme: 'snow'
+        });
+
+        const textAreaDesc = document.querySelector('textarea[name="Product.Description"]');
+
+        //load existing content and auto-sync
+        if(textAreaDesc.value) quill.root.innerHTML = textAreaDesc.value;
+
+        quill.on('text-change',()=> textAreaDesc.value = quill.root.innerHTML);
+    </script>
 
 }
