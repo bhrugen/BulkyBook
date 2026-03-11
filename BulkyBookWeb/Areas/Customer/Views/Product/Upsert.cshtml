@@ -1,5 +1,5 @@
-﻿@using BulkyBook.Models
-@model Product
+﻿@using BulkyBook.Models.ViewModels
+@model ProductVM
 
 <div class="container-fluid py-3">
     <a asp-action="Index" class="text-decoration-none text-secondary small fw-medium d-inline-flex align-items-center gap-1 mb-3">
@@ -17,57 +17,57 @@
 
                     <div class="row g-3">
                         <div class="col-12">
-                            <label asp-for="Title" class="form-label fw-semibold small"></label>
-                            <input type="text" asp-for="Title" class="form-control" placeholder="Enter product name" />
-                            <span asp-validation-for="Title" class="text-danger small"></span>
+                            <label asp-for="Product.Title" class="form-label fw-semibold small"></label>
+                            <input type="text" asp-for="Product.Title" class="form-control" placeholder="Enter product name" />
+                            <span asp-validation-for="Product.Title" class="text-danger small"></span>
                         </div>
                         <div class="col-12">
-                            <label asp-for="Description" class="form-label fw-semibold small"></label>
-                            <input type="text" asp-for="Description" class="form-control" placeholder="Enter product desc" />
-                            <span asp-validation-for="Description" class="text-danger small"></span>
+                            <label asp-for="Product.Description" class="form-label fw-semibold small"></label>
+                            <input type="text" asp-for="Product.Description" class="form-control" placeholder="Enter product desc" />
+                            <span asp-validation-for="Product.Description" class="text-danger small"></span>
                         </div>
                         <div class="col-6">
-                            <label asp-for="ISBN" class="form-label fw-semibold small"></label>
-                            <input type="text" asp-for="ISBN" class="form-control" placeholder="Enter ISBN" />
-                            <span asp-validation-for="ISBN" class="text-danger small"></span>
+                            <label asp-for="Product.ISBN" class="form-label fw-semibold small"></label>
+                            <input type="text" asp-for="Product.ISBN" class="form-control" placeholder="Enter ISBN" />
+                            <span asp-validation-for="Product.ISBN" class="text-danger small"></span>
                         </div>
                         <div class="col-6">
-                            <label asp-for="Author" class="form-label fw-semibold small"></label>
-                            <input type="text" asp-for="Author" class="form-control" placeholder="Enter author name" />
-                            <span asp-validation-for="Author" class="text-danger small"></span>
+                            <label asp-for="Product.Author" class="form-label fw-semibold small"></label>
+                            <input type="text" asp-for="Product.Author" class="form-control" placeholder="Enter author name" />
+                            <span asp-validation-for="Product.Author" class="text-danger small"></span>
                         </div>
                     </div>
                     <div class="border rounded p-3 mt-3 bg-light">
                         <p class="text-uppercase fw-semibold text-secondary mb-3" style="font-size: 0.65rem; letter-spacing: 0.1em;">Pricing</p>
                         <div class="row g-3">
                             <div class="col-6 col-md-3">
-                                <label asp-for="ListPrice" class="form-label fw-semibold small"></label>
-                                <input type="text" asp-for="ListPrice" class="form-control" />
-                                <span asp-validation-for="ListPrice" class="text-danger small"></span>
+                                <label asp-for="Product.ListPrice" class="form-label fw-semibold small"></label>
+                                <input type="text" asp-for="Product.ListPrice" class="form-control" />
+                                <span asp-validation-for="Product.ListPrice" class="text-danger small"></span>
                             </div>
                             <div class="col-6 col-md-3">
-                                <label asp-for="Price" class="form-label fw-semibold small"></label>
-                                <input type="text" asp-for="Price" class="form-control"  />
-                                <span asp-validation-for="Price" class="text-danger small"></span>
+                                <label asp-for="Product.Price" class="form-label fw-semibold small"></label>
+                                <input type="text" asp-for="Product.Price" class="form-control" />
+                                <span asp-validation-for="Product.Price" class="text-danger small"></span>
                             </div>
                             <div class="col-6 col-md-3">
-                                <label asp-for="Price50" class="form-label fw-semibold small"></label>
-                                <input type="text" asp-for="Price50" class="form-control" />
-                                <span asp-validation-for="Price50" class="text-danger small"></span>
+                                <label asp-for="Product.Price50" class="form-label fw-semibold small"></label>
+                                <input type="text" asp-for="Product.Price50" class="form-control" />
+                                <span asp-validation-for="Product.Price50" class="text-danger small"></span>
                             </div>
                             <div class="col-6 col-md-3">
-                                <label asp-for="Price100" class="form-label fw-semibold small"></label>
-                                <input type="text" asp-for="Price100" class="form-control" />
-                                <span asp-validation-for="Price100" class="text-danger small"></span>
+                                <label asp-for="Product.Price100" class="form-label fw-semibold small"></label>
+                                <input type="text" asp-for="Product.Price100" class="form-control" />
+                                <span asp-validation-for="Product.Price100" class="text-danger small"></span>
                             </div>
                         </div>
                     </div>
                     <div class="mt-3">
-                        <label asp-for="CategoryId" class="form-label fw-semibold small"></label>
-                        <select asp-for="CategoryId" asp-items="@(ViewBag.CategoryList)" class="form-select">
+                        <label asp-for="Product.CategoryId" class="form-label fw-semibold small"></label>
+                        <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
                             <option disabled selected>--Select Category--</option>
                         </select>
-                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                        <span asp-validation-for="Product.CategoryId" class="text-danger small"></span>
                     </div>
                 </div>
                 <div class="col-lg-4">
