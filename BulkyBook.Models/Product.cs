@@ -45,6 +45,7 @@ namespace BulkyBook.Models
 
         [Display(Name ="Category")]
         public int CategoryId { get; set; }
+        [ValidateNever]
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 

@@ -43,12 +43,12 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Upsert")]
-        public async Task<IActionResult> UpsertPOST(Product product)
+        public async Task<IActionResult> UpsertPOST(Product product, IFormFile? file)
         {
 
             if (ModelState.IsValid)
             {
-                await _productService.CreateProductAsync(product);
+               // await _productService.CreateProductAsync(product);
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }

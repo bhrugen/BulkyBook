@@ -11,7 +11,7 @@
             <p class="mb-0 small" style="color: #1DB954;">Add a new product for your products</p>
         </div>
         <div class="card-body p-4">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <div class="col-lg-8">
                     <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
@@ -69,6 +69,16 @@
                         </select>
                         <span asp-validation-for="Product.CategoryId" class="text-danger small"></span>
                     </div>
+                    <div class="mt-3">
+                        <label class="form-label fw-semibold small">Product Image</label>
+                        <div class="border border-2 border-dashed rounded p-4 text-center">
+                            <i class="bi bi-cloud-upload fs-4 text-secondary"></i>
+                            <input type="file" name="file" accept="image/*" class="form-control form-control-sm mt-2"/>
+                            <p class="text-secondary mt-1 mb-0" style="font-size: 0.75rem;">Upload a single product image (JPG, PNG)</p>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="col-lg-4">
                     <!--image-->
