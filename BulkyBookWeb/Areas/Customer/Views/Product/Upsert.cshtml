@@ -7,15 +7,18 @@
     </a>
     <div class="card border shadow-sm overflow-hidden">
         <div class="card-header text-white py-3 px-4" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
-            <h5 class="mb-0 fw-bold"><i class="bi bi-plus-lg me-2"></i>Create Product</h5>
-            <p class="mb-0 small" style="color: #1DB954;">Add a new product for your products</p>
+            <h5 class="mb-0 fw-bold"><i class="bi bi-plus-lg me-2"></i>@(Model.Product.Id != 0 ? "Edit" : "Create") Product</h5>
+            <p class="mb-0 small" style="color: #1DB954;">
+                @(Model.Product.Id != 0 ? "Edit Product Details" : "Add a new Product")
+            </p>
         </div>
         <div class="card-body p-4">
             <form method="post" enctype="multipart/form-data">
                 <div class="row">
                 <div class="col-lg-8">
                     <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
+                    <input asp-for="Product.Id" hidden/>
+                        <input asp-for="Product.ImageUrl" hidden />
                     <div class="row g-3">
                         <div class="col-12">
                             <label asp-for="Product.Title" class="form-label fw-semibold small"></label>
@@ -78,7 +81,10 @@
                             <p class="text-secondary mt-1 mb-0" style="font-size: 0.75rem;">Upload a single product image (JPG, PNG)</p>
                         </div>
                     </div>
-
+                        <div class="d-flex gap-2 mt-3">
+                            <button type="submit" class="btn btn-accent fw-semibold">@(Model.Product.Id != 0 ? "Edit" : "Create") Product</button>
+                            <a asp-controller="Product" asp-action="Index" class="btn btn-light fw-medium">Cancel</a>
+                        </div>
 
                 </div>
                 <div class="col-lg-4">
@@ -101,10 +107,7 @@
                             }
                         </div>
                 </div>
-                <div class="d-flex gap-2 mt-4">
-                    <button type="submit" class="btn btn-accent fw-semibold">Create Product</button>
-                    <a asp-controller="Product" asp-action="Index" class="btn btn-light fw-medium">Cancel</a>
-                </div>
+                
             </form>
         </div>
     </div>
