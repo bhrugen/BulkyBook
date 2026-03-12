@@ -17,8 +17,7 @@
             {
                 <div class="col">
                     <div class="card h-100 border shadow-sm book-card">
-                        <!-- TODO: Add dynamic link to Details page with asp-action and asp-route-productId -->
-                        <a href="#" class="text-decoration-none">
+                        <a asp-action="Details" asp-route-productId="@product.Id" class="text-decoration-none">
                             <div style="aspect-ratio: 3/4; overflow: hidden;">
                                 @if (!string.IsNullOrEmpty(product.ImageUrl))
                                 {
@@ -51,8 +50,7 @@
                                         <small class="text-decoration-line-through text-muted ms-1">@product.ListPrice.ToString("c")</small>
                                     }
                                 </div>
-                                <!-- TODO: Link to details page with product ID -->
-                                <a href="#" class="btn btn-sm btn-outline-dark">
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-sm btn-outline-dark">
                                     View
                                 </a>
                             </div>
