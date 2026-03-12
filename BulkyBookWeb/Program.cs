@@ -1,5 +1,6 @@
 using BulkyBook.Business.Services;
 using BulkyBook.Business.Services.IServices;
+using BulkyBook.Models;
 using BulkyBookWeb.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLConnection"));
 });
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
