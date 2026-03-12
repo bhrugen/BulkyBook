@@ -1,8 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<partial name="_Hero" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Catalog Section -->
+<div class="container py-5" id="catalog">
+    <div class="mb-4">
+        <h2 class="fw-bold mb-1">Our Collection</h2>
+        <!-- TODO: Display dynamic book count here -->
+        <p class="text-secondary mb-0">Explore all 25 books in our catalog</p>
+    </div>
+
+    <!-- Books Grid -->
+    <!-- TODO: Loop through products collection here -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+        <!-- Sample Book Card - This is a template, duplicate this inside the loop -->
+        <div class="col">
+            <div class="card h-100 border shadow-sm book-card">
+                <!-- TODO: Add dynamic link to Details page with asp-action and asp-route-productId -->
+                <a href="#" class="text-decoration-none">
+                    <div style="aspect-ratio: 3/4; overflow: hidden;">
+                        <!-- TODO: Display product image if available, otherwise show placeholder -->
+                        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light">
+                            <i class="bi bi-book display-3 text-secondary"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="card-body">
+                    <!-- TODO: Display product category -->
+                    <span class="badge bg-secondary mb-2">Fiction</span>
+                    <h6 class="card-title fw-semibold mb-2" style="min-height: 2.5rem;">
+                        <!-- TODO: Add link to details page and display product title -->
+                        <a href="#" class="text-decoration-none text-dark">
+                            Sample Book Title
+                        </a>
+                    </h6>
+                    <!-- TODO: Display product author -->
+                    <p class="text-secondary small mb-2">by John Doe</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <!-- TODO: Display product price -->
+                            <span class="fw-bold text-success">$19.99</span>
+                            <!-- TODO: Display list price if greater than current price -->
+                            <small class="text-decoration-line-through text-muted ms-1">$29.99</small>
+                        </div>
+                        <!-- TODO: Link to details page with product ID -->
+                        <a href="#" class="btn btn-sm btn-outline-dark">
+                            View
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+<partial name="_Newsletter" />
