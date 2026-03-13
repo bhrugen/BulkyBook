@@ -1,5 +1,20 @@
-﻿<a class="text-white-50 text-decoration-none small fw-medium nav-link-hover" asp-area="Identity"
-   asp-controller="account" asp-action="Register">Register</a>
-<a class="btn btn-sm btn-accent fw-semibold" asp-area="Identity" asp-controller="Account" asp-action="Login">
-    Login
-</a>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
+        <button type="submit"
+                class="btn btn-sm btn-outline-light" style="font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;"
+        >Logout </button>
+    </form>
+}
+else {
+    <a class="text-white-50 text-decoration-none small fw-medium nav-link-hover" asp-area="Identity"
+    asp-controller="account" asp-action="Register">Register</a>
+    <a class="btn btn-sm btn-accent fw-semibold" asp-area="Identity" asp-controller="Account" asp-action="Login">
+        Login
+    </a>
+}
