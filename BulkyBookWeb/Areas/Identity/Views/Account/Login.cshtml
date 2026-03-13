@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@model LoginVM
+
+<div class="container">
     <div class="row justify-content-center mt-5">
         <div class="col-md-6 col-lg-5">
             <div class="card shadow-sm border overflow-hidden">
@@ -9,24 +11,24 @@
                 </div>
 
                 <div class="card-body p-5">
-                    <form>
-                        <!-- TODO: Add validation summary for ModelOnly errors with class "text-danger mb-3" -->
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
                         <div class="mb-3">
-                            <!-- TODO: Add label, input and validation tag helper for Email property -->
-                            <label>Email</label>
-                            <input type="email" class="form-control form-control-lg" placeholder="name@example.com" />
+                            <label asp-for="Email"  class="form-label">Email</label>
+                                <input asp-for="Email" type="email" class="form-control form-control-lg" placeholder="name@example.com" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <!-- TODO: Add label, input and validation tag helper for Password property -->
-                            <label>Password</label>
-                            <input type="password" class="form-control form-control-lg" placeholder="Enter your password" />
+                            <label asp-for="Password" class="form-label">Email</label>
+                            <input asp-for="Password" type="password" class="form-control form-control-lg" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
                         <div class="form-check mb-3">
-                            <!-- TODO: RememberMe  -->
-                            <input type="checkbox" class="form-check-input" />
-                            <label class="form-check-label">Remember me?</label>
+                            <input asp-for="RememberMe" type="checkbox" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label">Remember me?</label>
                         </div>
 
                         <button type="submit" class="btn btn-accent btn-lg w-100 mb-3">
@@ -41,8 +43,7 @@
                     <hr class="my-4" />
 
                     <div class="text-center">
-                        <!-- TODO: Add Link -->
-                        <p class="mb-0">Don't have an account? <a href="#" class="fw-semibold text-decoration-none" style="color: #17A34A;">Register now</a></p>
+                        <p class="mb-0">Don't have an account? <a asp-action="Register" class="fw-semibold text-decoration-none" style="color: #17A34A;">Register now</a></p>
                     </div>
                 </div>
             </div>
@@ -51,3 +52,7 @@
 </div>
 
 
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}
