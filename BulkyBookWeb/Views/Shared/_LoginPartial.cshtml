@@ -5,6 +5,9 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
+    <a class="text-white-50 text-decoration-none small fw-medium">
+        <i class="bi bi-person-circle me-1"></i> @UserManager.GetUserName(User)
+    </a>
     <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
         <button type="submit"
                 class="btn btn-sm btn-outline-light" style="font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;"
