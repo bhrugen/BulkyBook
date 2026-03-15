@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -33,5 +35,11 @@ namespace BulkyBook.Models.ViewModels
 
         [Display(Name = "Phone Number")]
         public string? PhoneNumber { get; set; }
+
+        [Required]
+        public string Role { get; set; }
+
+        [ValidateNever]
+        public IEnumerable<SelectListItem> RoleList { get; set; }
     }
 }
