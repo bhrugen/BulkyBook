@@ -14,7 +14,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SQLConnection"));
 });
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;              // Must have at least one number (0-9)
+    options.Password.RequireLowercase = true;          // Must have at least one lowercase letter (a-z)
+    options.Password.RequireUppercase = true;          // Must have at least one uppercase letter (A-Z)
+    options.Password.RequireNonAlphanumeric = true;    // Must have at least one special character (!@#$%^&*)
+    options.Password.RequiredLength = 7;               // Minimum 7 characters
+    options.Password.RequiredUniqueChars = 1;          // Minimum unique characters
+})
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
