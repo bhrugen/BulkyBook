@@ -958,6 +958,23 @@ div.dt-container div.dt-info {
         background: #1e1e1e !important;
     }
 
+.cart-btn {
+    transition: all 0.3s ease;
+}
+
+    .cart-btn:hover {
+        background: rgba(255,255,255,0.12) !important;
+        transform: translateY(-2px);
+        border-color: rgba(255,255,255,0.25) !important;
+    }
+
+        .cart-btn:hover .cart-icon-circle {
+            background: rgba(23, 163, 74, 0.8) !important;
+        }
+
+    .cart-btn:hover {
+        color: #17A34A !important;
+    }
 /* Theme toggle animation */
 #themeToggle {
     transition: transform 0.3s ease;

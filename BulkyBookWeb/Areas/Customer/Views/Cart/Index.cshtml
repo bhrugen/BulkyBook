@@ -1,0 +1,141 @@
+﻿
+<div class="container py-4" style="max-width: 1140px;">
+    <form method="post">
+        <!-- Back link -->
+        <a href="#" class="text-decoration-none text-secondary small fw-medium d-inline-flex align-items-center gap-1 mb-3">
+            <i class="bi bi-arrow-left"></i> Continue Shopping
+        </a>
+
+        <div class="row g-4 align-items-start">
+
+            <!-- ============ LEFT: Items ============ -->
+            <div class="col-lg-7">
+                <div class="card border shadow-sm overflow-hidden">
+                    <div class="card-header text-white d-flex align-items-center justify-content-between py-3 px-4" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+                        <h5 class="mb-0 fw-bold"><i class="bi bi-bag me-2"></i>Your Items</h5>
+                        <span class="badge rounded-pill bg-white bg-opacity-25 text-white">2</span>
+                    </div>
+
+                    <!-- TODO: Add empty cart check -->
+
+                    <div class="cart-items-scroll">
+                        <!-- TODO: Loop through cart items -->
+
+                        <div class="d-flex gap-3 px-4 py-3 border-bottom cart-item">
+                            <!-- Thumbnail -->
+                            <a href="#" class="flex-shrink-0">
+                                <div class="rounded overflow-hidden" style="width: 56px; height: 72px;">
+                                    <img src="https://placehold.co/56x72" class="w-100 h-100" style="object-fit: cover;" alt="Product" />
+                                </div>
+                            </a>
+
+                            <!-- Info -->
+                            <div class="flex-grow-1" style="min-width: 0;">
+                                <a href="#" class="fw-semibold text-decoration-none d-block text-truncate" style="font-size: 0.85rem;">
+                                    Product Title
+                                </a>
+                                <p class="text-secondary mb-2" style="font-size: 0.7rem;">by Author Name &middot; $19.99 each</p>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="input-group" style="width: 130px;">
+                                        <a href="#" class="btn btn-outline-secondary btn-sm px-2"><i class="bi bi-dash"></i></a>
+                                        <input type="number" value="1" min="1"
+                                               class="form-control form-control-sm text-center fw-bold"
+                                               style="min-width: 52px;"
+                                               onchange="updateCart(1, this.value)" />
+                                        <a href="#" class="btn btn-outline-success btn-sm px-2"><i class="bi bi-plus-lg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Price + Remove -->
+                            <div class="text-end flex-shrink-0 d-flex flex-column justify-content-between align-self-stretch">
+                                <span class="fw-bold" style="font-size: 0.9rem;">$19.99</span>
+                                <a href="#" class="text-danger text-decoration-none d-inline-flex align-items-center gap-1" style="font-size: 0.7rem;">
+                                    <i class="bi bi-trash3"></i> Remove
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ RIGHT: Checkout sidebar ============ -->
+            <div class="col-lg-5">
+                <div class="position-lg-sticky" style="top: 80px;">
+                    <div class="card border shadow-sm overflow-hidden">
+
+                        <!-- Shipping -->
+                        <div class="px-4 pt-4 pb-3">
+                            <h6 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                                <i class="bi bi-geo-alt" style="color: #17A34A;"></i> Shipping Address
+                            </h6>
+                            <div class="row g-2 mb-2">
+                                <div class="col-6">
+                                    <!-- TODO: Add input binding and validation -->
+                                    <input class="form-control form-control-sm" placeholder="Full Name" />
+                                </div>
+                                <div class="col-6">
+                                    <input class="form-control form-control-sm" placeholder="Phone" />
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <input class="form-control form-control-sm" placeholder="Street Address" />
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-5">
+                                    <input class="form-control form-control-sm" placeholder="City" />
+                                </div>
+                                <div class="col-3">
+                                    <input class="form-control form-control-sm" placeholder="State" />
+                                </div>
+                                <div class="col-4">
+                                    <input class="form-control form-control-sm" placeholder="Zip Code" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-0 mx-4" />
+
+                        <!-- Summary -->
+                        <div class="px-4 py-3">
+                            <h6 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                                <i class="bi bi-receipt" style="color: #17A34A;"></i> Order Summary
+                            </h6>
+                            <!-- TODO: Loop through items for summary -->
+                            <div class="d-flex justify-content-between mb-1" style="font-size: 0.8rem;">
+                                <span class="text-secondary text-truncate me-2">Product Title &times; 1</span>
+                                <span class="fw-medium flex-shrink-0">$19.99</span>
+                            </div>
+                            <hr class="my-2" />
+                            <div class="d-flex justify-content-between" style="font-size: 0.8rem;">
+                                <span class="text-secondary">Shipping</span>
+                                <span class="fw-semibold" style="color: #17A34A;">Free</span>
+                            </div>
+                        </div>
+
+                        <!-- Total bar -->
+                        <div class="d-flex justify-content-between align-items-center px-4 py-3 text-white" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+                            <span class="text-uppercase fw-semibold small">Total</span>
+                            <span class="fw-bold fs-5">$19.99</span>
+                        </div>
+
+                        <!-- Place Order -->
+                        <div class="p-4">
+                            <button type="submit" class="btn btn-accent w-100 fw-semibold py-2 d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-lock"></i> Place Order
+                            </button>
+                            <div class="d-flex justify-content-center gap-3 mt-3 text-secondary" style="font-size: 0.7rem;">
+                                <span><i class="bi bi-shield-check me-1"></i>Secure</span>
+                                <span><i class="bi bi-truck me-1"></i>Free Shipping</span>
+                                <span><i class="bi bi-arrow-counterclockwise me-1"></i>Returns</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
