@@ -1,8 +1,12 @@
-﻿
+﻿@model ShoppingCartVM
+
+@{
+    var itemCount = Model.ShoppingCartList.Count();
+}
+
 <div class="container py-4" style="max-width: 1140px;">
     <form method="post">
-        <!-- Back link -->
-        <a href="#" class="text-decoration-none text-secondary small fw-medium d-inline-flex align-items-center gap-1 mb-3">
+        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="text-decoration-none text-secondary small fw-medium d-inline-flex align-items-center gap-1 mb-3">
             <i class="bi bi-arrow-left"></i> Continue Shopping
         </a>
 
@@ -13,51 +17,71 @@
                 <div class="card border shadow-sm overflow-hidden">
                     <div class="card-header text-white d-flex align-items-center justify-content-between py-3 px-4" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
                         <h5 class="mb-0 fw-bold"><i class="bi bi-bag me-2"></i>Your Items</h5>
-                        <span class="badge rounded-pill bg-white bg-opacity-25 text-white">2</span>
+                        <span class="badge rounded-pill bg-white bg-opacity-25 text-white">@itemCount</span>
                     </div>
 
-                    <!-- TODO: Add empty cart check -->
-
+                    @if(itemCount==0)
+                    {
+                        <div class="text-center py-5">
+                            <i class="bi bi-cart-x display-4 text-secondary"></i>
+                            <p class="text-secondary mt-3 mb-0">Your cart is empty</p>
+                        </div>
+                    }
+                    else{
                     <div class="cart-items-scroll">
-                        <!-- TODO: Loop through cart items -->
+                        @foreach(var item in Model.ShoppingCartList)
+                            {
+                            <div class="d-flex gap-3 px-4 py-3 border-bottom cart-item">
+                                <!-- Thumbnail -->
+                                <a href="#" class="flex-shrink-0">
+                                    <div class="rounded overflow-hidden" style="width: 56px; height: 72px;">
+                                        @if (!string.IsNullOrEmpty(item.Product.ImageUrl))
+                                            {
+                                                <img src="@item.Product.ImageUrl" class="w-100 h-100 " />
+                                            }
+                                            else
+                                            {
+                                        <img src="https://placehold.co/56x72" class="w-100 h-100" style="object-fit: cover;" alt="Product" />        
+                                            }
 
-                        <div class="d-flex gap-3 px-4 py-3 border-bottom cart-item">
-                            <!-- Thumbnail -->
-                            <a href="#" class="flex-shrink-0">
-                                <div class="rounded overflow-hidden" style="width: 56px; height: 72px;">
-                                    <img src="https://placehold.co/56x72" class="w-100 h-100" style="object-fit: cover;" alt="Product" />
-                                </div>
-                            </a>
-
-                            <!-- Info -->
-                            <div class="flex-grow-1" style="min-width: 0;">
-                                <a href="#" class="fw-semibold text-decoration-none d-block text-truncate" style="font-size: 0.85rem;">
-                                    Product Title
+                                        
+                                    </div>
                                 </a>
-                                <p class="text-secondary mb-2" style="font-size: 0.7rem;">by Author Name &middot; $19.99 each</p>
 
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="input-group" style="width: 130px;">
-                                        <a href="#" class="btn btn-outline-secondary btn-sm px-2"><i class="bi bi-dash"></i></a>
-                                        <input type="number" value="1" min="1"
-                                               class="form-control form-control-sm text-center fw-bold"
-                                               style="min-width: 52px;"
-                                               onchange="updateCart(1, this.value)" />
-                                        <a href="#" class="btn btn-outline-success btn-sm px-2"><i class="bi bi-plus-lg"></i></a>
+                                <!-- Info -->
+                                <div class="flex-grow-1" style="min-width: 0;">
+                                    <a href="#" class="fw-semibold text-decoration-none d-block text-truncate" style="font-size: 0.85rem;">
+                                            @item.Product.Title
+                                    </a>
+                                    <p class="text-secondary mb-2" style="font-size: 0.7rem;">by @item.Product.Author &middot; @item.Price.ToString("c") each</p>
+
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="input-group" style="width: 130px;">
+                                            <a href="#" class="btn btn-outline-secondary btn-sm px-2"><i class="bi bi-dash"></i></a>
+                                            <input type="number"  value="@item.Count" min="1"
+                                                   class="form-control form-control-sm text-center fw-bold"
+                                                   style="min-width: 52px;"
+                                                   onchange="updateCart(1, this.value)" />
+                                            <a href="#" class="btn btn-outline-success btn-sm px-2"><i class="bi bi-plus-lg"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Price + Remove -->
-                            <div class="text-end flex-shrink-0 d-flex flex-column justify-content-between align-self-stretch">
-                                <span class="fw-bold" style="font-size: 0.9rem;">$19.99</span>
-                                <a href="#" class="text-danger text-decoration-none d-inline-flex align-items-center gap-1" style="font-size: 0.7rem;">
-                                    <i class="bi bi-trash3"></i> Remove
-                                </a>
+                                <!-- Price + Remove -->
+                                <div class="text-end flex-shrink-0 d-flex flex-column justify-content-between align-self-stretch">
+                                    <span class="fw-bold" style="font-size: 0.9rem;">@((item.Price * item.Count).ToString("c"))</span>
+                                    <a href="#" class="text-danger text-decoration-none d-inline-flex align-items-center gap-1" style="font-size: 0.7rem;">
+                                        <i class="bi bi-trash3"></i> Remove
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                            }
+
+                       
 
                     </div>
+                    }
+                   
                 </div>
             </div>
 
