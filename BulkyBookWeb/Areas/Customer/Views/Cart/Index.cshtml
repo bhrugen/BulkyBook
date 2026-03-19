@@ -97,25 +97,31 @@
                             </h6>
                             <div class="row g-2 mb-2">
                                 <div class="col-6">
-                                    <!-- TODO: Add input binding and validation -->
-                                    <input class="form-control form-control-sm" placeholder="Full Name" />
+                                    
+                                    <input asp-for="OrderHeader.Name" class="form-control form-control-sm" placeholder="Full Name" />
+                                    <span asp-validation-for="OrderHeader.Name" class="text-danger" style="font-size: 0.65rem;"></span>
                                 </div>
                                 <div class="col-6">
-                                    <input class="form-control form-control-sm" placeholder="Phone" />
+                                    <input asp-for="OrderHeader.PhoneNumber" class="form-control form-control-sm" placeholder="Phone" />
+                                    <span asp-validation-for="OrderHeader.PhoneNumber" class="text-danger" style="font-size: 0.65rem;"></span>
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <input class="form-control form-control-sm" placeholder="Street Address" />
+                                <input asp-for="OrderHeader.StreetAddress" class="form-control form-control-sm" placeholder="Street Address" />
+                                <span asp-validation-for="OrderHeader.StreetAddress" class="text-danger" style="font-size: 0.65rem;"></span>
                             </div>
                             <div class="row g-2">
                                 <div class="col-5">
-                                    <input class="form-control form-control-sm" placeholder="City" />
+                                    <input asp-for="OrderHeader.City" class="form-control form-control-sm" placeholder="City" />
+                                    <span asp-validation-for="OrderHeader.City" class="text-danger" style="font-size: 0.65rem;"></span>
                                 </div>
                                 <div class="col-3">
-                                    <input class="form-control form-control-sm" placeholder="State" />
+                                    <input asp-for="OrderHeader.State" class="form-control form-control-sm" placeholder="State" />
+                                    <span asp-validation-for="OrderHeader.State" class="text-danger" style="font-size: 0.65rem;"></span>
                                 </div>
                                 <div class="col-4">
-                                    <input class="form-control form-control-sm" placeholder="Zip Code" />
+                                    <input asp-for="OrderHeader.PostalCode" class="form-control form-control-sm" placeholder="Zip Code" />
+                                    <span asp-validation-for="OrderHeader.PostalCode" class="text-danger" style="font-size: 0.65rem;"></span>
                                 </div>
                             </div>
                         </div>
@@ -127,12 +133,14 @@
                             <h6 class="fw-bold mb-3 d-flex align-items-center gap-2">
                                 <i class="bi bi-receipt" style="color: #17A34A;"></i> Order Summary
                             </h6>
-                            <!-- TODO: Loop through items for summary -->
-                            <div class="d-flex justify-content-between mb-1" style="font-size: 0.8rem;">
-                                <span class="text-secondary text-truncate me-2">Product Title &times; 1</span>
-                                <span class="fw-medium flex-shrink-0">$19.99</span>
-                            </div>
-                            <hr class="my-2" />
+                            @foreach (var item in Model.ShoppingCartList)
+                                {
+                                    <div class="d-flex justify-content-between mb-1" style="font-size: 0.8rem;">
+                                        <span class="text-secondary text-truncate me-2">@item.Product.Title &times; 1</span>
+                                    <span class="fw-medium flex-shrink-0">@((item.Price * item.Count).ToString("c"))</span>
+                                    </div>
+                                }
+                                <hr class="my-2" />
                             <div class="d-flex justify-content-between" style="font-size: 0.8rem;">
                                 <span class="text-secondary">Shipping</span>
                                 <span class="fw-semibold" style="color: #17A34A;">Free</span>
@@ -142,7 +150,7 @@
                         <!-- Total bar -->
                         <div class="d-flex justify-content-between align-items-center px-4 py-3 text-white" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
                             <span class="text-uppercase fw-semibold small">Total</span>
-                            <span class="fw-bold fs-5">$19.99</span>
+                            <span class="fw-bold fs-5">@Model.OrderHeader.OrderTotal.ToString("c")</span>
                         </div>
 
                         <!-- Place Order -->
