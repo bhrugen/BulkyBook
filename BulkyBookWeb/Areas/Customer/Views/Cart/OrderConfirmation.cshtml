@@ -1,0 +1,35 @@
+﻿@model int
+<div class="d-flex align-items-center justify-content-center py-5" style="min-height: 70vh;">
+    <div style="width: 100%; max-width: 420px;" class="text-center">
+        <div class="mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center shadow" style="width: 80px; height: 80px; background: linear-gradient(135deg, #17A34A, #10b981);">
+            <i class="bi bi-check-lg display-5 text-white"></i>
+        </div>
+
+        <h1 class="h3 fw-bold mb-2">Order Confirmed!</h1>
+        <p class="text-secondary mb-4">Thank you for your purchase. We're preparing your order.</p>
+
+        <div class="card border shadow-sm overflow-hidden mb-4">
+            <div class="card-header text-white py-2 text-center" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+                <p class="text-uppercase fw-semibold mb-0" style="font-size: 0.65rem; letter-spacing: 0.1em;">Order Number</p>
+            </div>
+            <div class="card-body py-4">
+                <span class="display-6 fw-bold" style="color: #17A34A;">@Model</span>
+            </div>
+            <div class="card-footer bg-light">
+                <div class="d-flex justify-content-center gap-4 small text-secondary">
+                    <span><i class="bi bi-envelope me-1"></i> Confirmation sent</span>
+                    <span><i class="bi bi-truck me-1"></i> Tracking available soon</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2">
+            <a href="#" class="btn text-white fw-semibold" style="background: #17A34A;">
+                <i class="bi bi-box me-1"></i> View My Orders
+            </a>
+            <a href="#" class="btn btn-outline-secondary fw-semibold">
+                <i class="bi bi-house me-1"></i> Continue Shopping
+            </a>
+        </div>
+    </div>
+</div>
