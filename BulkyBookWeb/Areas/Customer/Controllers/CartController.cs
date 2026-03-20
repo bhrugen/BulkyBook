@@ -83,7 +83,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 ProductId = cart.ProductId,
                 Price = cart.Price,
                 Count = cart.Count,
-            });
+            }).ToList();
             //create order 
 
             await _orderService.CreateOrderAsync(shoppingCartVM.OrderHeader);

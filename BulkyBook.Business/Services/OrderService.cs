@@ -17,9 +17,12 @@ namespace BulkyBook.Business.Services
             _db = db;
         }
 
-        public Task<OrderHeader> CreateOrderAsync(OrderHeader orderHeader)
+        public async Task<OrderHeader> CreateOrderAsync(OrderHeader orderHeader)
         {
-            throw new NotImplementedException();
+           _db.OrderHeaders.Add(orderHeader);
+            await _db.SaveChangesAsync();
+
+            return orderHeader;
         }
 
         public async Task<IEnumerable<OrderHeader>> GetAllOrderAsync(string? userId = null, string? status = null, bool includeUser = false, bool includeDetails = false)
