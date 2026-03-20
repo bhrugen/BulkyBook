@@ -27,6 +27,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IShoppingCartService,ShoppingCartService>();
+builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/identity/account/login";

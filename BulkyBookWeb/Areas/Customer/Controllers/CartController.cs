@@ -14,10 +14,12 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
     {
         private readonly IProductService _productService;
         private readonly IShoppingCartService _shoppingCartService;
-        public CartController(IProductService productService, IShoppingCartService shoppingCartService)
+        private readonly IApplicationUserService _applicationUserService;
+        public CartController(IProductService productService, IShoppingCartService shoppingCartService, IApplicationUserService applicationUserService)
         {
             _productService = productService;
             _shoppingCartService = shoppingCartService;
+            _applicationUserService = applicationUserService;
         }
 
         public async Task<IActionResult> Index()
@@ -30,14 +32,23 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             }
 
             var cartItems = await _shoppingCartService.GetUserCartItemsAsync(userId);
-
+            var user = await _applicationUserService.GetUserByIdAsync(userId);
             ShoppingCartVM shoppingCartVM = new()
             {
                 ShoppingCartList = cartItems,
                 OrderHeader = new()
             };
+            shoppingCartVM.OrderHeader.ApplicationUser = user;
+            shoppingCartVM.OrderHeader.ApplicationUserId = userId;
+            shoppingCartVM.OrderHeader.Name = user.Name;
+            shoppingCartVM.OrderHeader.PhoneNumber = user.PhoneNumber;
+            shoppingCartVM.OrderHeader.StreetAddress = user.StreetAddress;
+            shoppingCartVM.OrderHeader.City = user.City;
+            shoppingCartVM.OrderHeader.State = user.State;
+            shoppingCartVM.OrderHeader.PostalCode = user.PostalCode;
 
-            foreach(var cart in shoppingCartVM.ShoppingCartList)
+
+            foreach (var cart in shoppingCartVM.ShoppingCartList)
             {
                 shoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
             }
