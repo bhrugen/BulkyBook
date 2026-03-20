@@ -1,6 +1,7 @@
 using BulkyBook.Business.Services.IServices;
 using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
+using BulkyBook.Utiltiy;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -52,6 +53,33 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             {
                 shoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
             }
+            return View(shoppingCartVM);
+        }
+        [HttpPost]
+        [ActionName("Index")]
+        public async Task<IActionResult> IndexPOST(ShoppingCartVM shoppingCartVM)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var cartItems = await _shoppingCartService.GetUserCartItemsAsync(userId);
+            shoppingCartVM.ShoppingCartList = cartItems;
+            shoppingCartVM.OrderHeader.OrderDate = DateTime.UtcNow;
+            shoppingCartVM.OrderHeader.ApplicationUserId = userId;
+           
+            foreach (var cart in shoppingCartVM.ShoppingCartList)
+            {
+                shoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+            }
+
+
+            shoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
+
+            //create order 
             return View(shoppingCartVM);
         }
 
