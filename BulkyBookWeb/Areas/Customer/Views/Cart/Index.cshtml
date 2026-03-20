@@ -61,7 +61,7 @@
                                             <input type="number"  value="@item.Count" min="1"
                                                    class="form-control form-control-sm text-center fw-bold"
                                                    style="min-width: 52px;"
-                                                   onchange="updateCart(1, this.value)" />
+                                                   onchange="updateCart(@item.Id, this.value)" />
                                                 <a asp-action="plus" asp-route-cartId="@item.Id" class="btn btn-outline-success btn-sm px-2"><i class="bi bi-plus-lg"></i></a>
                                         </div>
                                     </div>
@@ -174,3 +174,19 @@
     </form>
 </div>
 
+@section Scripts{
+
+    <script>
+        function updateCart(cartId, count){
+            fetch('/Customer/Cart/UpdateCart',{
+                method:'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body:'cartId='+cartId + '&count=' + count
+            }).then(response=>{
+                if(response.ok) window.location.reload();
+            });
+        }
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}
