@@ -268,7 +268,43 @@ div.dt-container {
             box-shadow: 0 0 0 3px rgba(23, 163, 74, 0.12) !important;
             background: #fff !important;
         }
+/* DataTables 2.x Layout Fix - Ensure controls stay on same row */
+div.dt-layout-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
 
+div.dt-layout-cell {
+    flex: 0 0 auto;
+}
+
+div.dt-layout-start {
+    flex: 0 0 auto;
+}
+
+div.dt-layout-end {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+/* Ensure length and search controls display inline */
+div.dt-length,
+div.dt-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Prevent wrapping on larger screens */
+@media (min-width: 768px) {
+    div.dt-layout-row {
+        flex-wrap: nowrap;
+    }
+}
 /* Table */
 table.dataTable {
     border-collapse: collapse !important;
