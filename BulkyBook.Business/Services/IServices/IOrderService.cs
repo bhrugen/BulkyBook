@@ -14,5 +14,7 @@ namespace BulkyBook.Business.Services.IServices
         Task<IEnumerable<OrderHeader>> GetAllOrderAsync(string? userId=null,string? status=null, bool includeUser = false, bool includeDetails = false);
 
         Task UpdateOrderAsync(OrderHeader orderHeader);
+
+        Task UpdateOrderStatusAsync(int id, string orderStatus, string? carrier = null, string? trackingNumber = null);
     }
 }
