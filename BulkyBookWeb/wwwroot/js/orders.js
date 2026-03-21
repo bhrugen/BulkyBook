@@ -4,10 +4,13 @@ $(document).ready(function () {
     var url = window.location.search;
     if (url.includes("cancelled")) {
         loadDataTable("cancelled");
-    } else if (url.includes("completed")) {
-        loadDataTable("completed");
-    } else if (url.includes("inprocess")) {
-        loadDataTable("inprocess");
+    } else if (url.includes("shipped")) {
+        loadDataTable("shipped");
+    }
+        else if (url.includes("pending")) {
+            loadDataTable("pending");
+    } else if (url.includes("processing")) {
+        loadDataTable("processing");
     } else if (url.includes("approved")) {
         loadDataTable("approved");
     } else {
