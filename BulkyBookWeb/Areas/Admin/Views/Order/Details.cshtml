@@ -1,4 +1,5 @@
-﻿@model OrderHeader
+﻿@using BulkyBook.Utiltiy
+@model OrderHeader
 
 <div class="container-fluid py-3">
     <form method="post">
@@ -22,7 +23,7 @@
                     <!-- Left column: Shipping info -->
                     <div class="col-lg-6">
                         <h6 class="text-uppercase fw-semibold text-secondary mb-4" style="font-size: 0.7rem; letter-spacing: 0.1em;">
-                            Shipping &amp; Tracking
+                            Order Details
                         </h6>
 
                         <div class="row g-2 mb-2">
@@ -87,22 +88,23 @@
                                 <input type="text" readonly class="form-control-plaintext form-control-sm" value="@Model.OrderDate.ToShortDateString()" />
                             </div>
                         </div>
+                        @if (Model.OrderStatus != SD.StatusPending && Model.OrderStatus != SD.StatusApproved)
+                            {
+                                <div class="row g-2 mb-2">
+                                    <label class="col-4 col-form-label small fw-medium text-secondary">Carrier</label>
+                                    <div class="col-8">
+                                        <input asp-for="Carrier" id="carrier" class="form-control form-control-sm" />
+                                    </div>
+                                </div>
 
-                        <div class="row g-2 mb-2">
-                            <label class="col-4 col-form-label small fw-medium text-secondary">Carrier</label>
-                            <div class="col-8">
-                                <input asp-for="Carrier" id="carrier" class="form-control form-control-sm" />
-                            </div>
-                        </div>
-
-                        <div class="row g-2 mb-2">
-                            <label class="col-4 col-form-label small fw-medium text-secondary">Tracking</label>
-                            <div class="col-8">
-                                <input asp-for="TrackingNumber" type="text" id="trackingNumber" class="form-control form-control-sm" />
-                            </div>
-                        </div>
-
-                        @if (Model.ShippingDate != default(DateTime))
+                                <div class="row g-2 mb-2">
+                                    <label class="col-4 col-form-label small fw-medium text-secondary">Tracking</label>
+                                    <div class="col-8">
+                                        <input asp-for="TrackingNumber" type="text" id="trackingNumber" class="form-control form-control-sm" />
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.ShippingDate != default(DateTime))
                             {
                                 <div class="row g-2 mb-2">
                                     <label class="col-4 col-form-label small fw-medium text-secondary">Shipping Date</label>
