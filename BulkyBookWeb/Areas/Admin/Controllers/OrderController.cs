@@ -68,6 +68,58 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
 
 
+        [HttpPost]
+        [Authorize(Roles = SD.RoleAdmin + "," + SD.RoleEmployee)]
+        public async Task<IActionResult> UpdateOrderStatus(string status)
+        {
+            var orderHeader = await _orderService.GetOrderByIdAsync(OrderHeader.Id);
+            if (orderHeader== null)
+            {
+                TempData["error"] = "Order not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            string successMessage;
+
+            switch (status)
+            {
+                case SD.StatusInProcess:
+                    await _orderService.UpdateOrderStatusAsync(OrderHeader.Id, status);
+                    successMessage = "Order processing started successfully.";
+                    break;
+                case SD.StatusCancelled:
+                    await _orderService.UpdateOrderStatusAsync(OrderHeader.Id, status);
+                    successMessage = "Order refunded successfully.";
+                    break;
+                case SD.StatusRefunded:
+                    await _orderService.UpdateOrderStatusAsync(OrderHeader.Id, status);
+                    successMessage = "Order cancelled successfully.";
+                    break;
+                case SD.StatusShipped:
+
+                    if (string.IsNullOrEmpty(OrderHeader.Carrier) || string.IsNullOrEmpty(OrderHeader.TrackingNumber))
+                    {
+                        TempData["error"] = "Please provide both carrier and tracking number.";
+                        return RedirectToAction(nameof(Details), new { orderId = OrderHeader.Id });
+                    }
+
+                    await _orderService.UpdateOrderStatusAsync(
+                        OrderHeader.Id,SD.StatusShipped,OrderHeader.Carrier,OrderHeader.TrackingNumber);
+                    successMessage = "Order shipped successfully.";
+                    break;
+
+                default:
+                    TempData["error"] = "Invalid status update.";
+                    return RedirectToAction(nameof(Details), new { orderId = OrderHeader.Id });
+            }
+
+            TempData["Success"] = successMessage;
+
+            return RedirectToAction(nameof(Details), new { orderId = OrderHeader.Id });
+
+        }
+
+
         #region API CALLS
         [AllowAnonymous]
         public async Task<IActionResult> GetAll(string status)
