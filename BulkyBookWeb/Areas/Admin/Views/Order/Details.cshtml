@@ -158,20 +158,20 @@
                         <div class="d-grid gap-2">
                                 @if (Model.OrderStatus == SD.StatusApproved)
                                 {
-                                    <button type="submit" class="btn btn-accent fw-semibold">
+                                <button type="submit" asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusInProcess" class="btn btn-accent fw-semibold">
                                         Start Processing
                                     </button>
                                 }
                             @if (Model.OrderStatus == SD.StatusInProcess)
                                 {
-                                <button type="submit" onclick="return validateInput()" class="btn btn-accent fw-semibold">
+                                <button asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusShipped" type="submit" onclick="return validateInput()" class="btn btn-warning fw-semibold">
                                 Ship Order
                             </button>
                                 }
 
                             @if (Model.OrderStatus != SD.StatusRefunded && Model.OrderStatus != SD.StatusCancelled && Model.OrderStatus != SD.StatusShipped)
                                 {
-                            <button type="submit" class="btn btn-danger fw-semibold">
+                            <button  asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusCancelled" type="submit" class="btn btn-danger fw-semibold">
                                 Cancel Order
                             </button>
                                 }
