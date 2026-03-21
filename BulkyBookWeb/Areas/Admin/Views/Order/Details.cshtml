@@ -1,21 +1,20 @@
-﻿
+﻿@model OrderHeader
+
 <div class="container-fluid py-3">
     <form method="post">
-        @* TODO: Add hidden input for order ID *@
+        <input asp-for="Id" hidden/>
 
-        @* TODO: Add back to orders link *@
-        <a href="#" class="text-decoration-none text-secondary small fw-medium d-inline-flex align-items-center gap-1 mb-3">
+       
+        <a asp-action="Index" class="text-decoration-none text-secondary small fw-medium d-inline-flex align-items-center gap-1 mb-3">
             <i class="bi bi-arrow-left"></i> Back to orders
         </a>
 
         <div class="card border shadow-sm overflow-hidden">
             <div class="card-header text-white py-3 px-4" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
                 <h5 class="mb-0 fw-bold">
-                    <i class="bi bi-receipt me-2"></i>Order #<span>123</span>
-                    @* TODO: Display order ID *@
+                    <i class="bi bi-receipt me-2"></i>Order #<span>@Model.Id</span>
                 </h5>
-                <p class="mb-0 small" style="color: #1DB954;">Placed on <span>01/15/2024</span></p>
-                @* TODO: Display order date *@
+                <p class="mb-0 small" style="color: #1DB954;">Placed on <span>@Model.OrderDate.ToShortDateString()</span></p>
             </div>
 
             <div class="card-body p-4">
@@ -29,97 +28,89 @@
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">Name</label>
                             <div class="col-8">
-                                @* TODO: Bind to Name property, make editable for admin, readonly for customer *@
-                                <input type="text" class="form-control form-control-sm" value="John Doe" />
-                                <span class="text-danger small"></span>
+                                
+                                <input asp-for="Name" class="form-control form-control-sm"  />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">Phone</label>
                             <div class="col-8">
-                                @* TODO: Bind to Phone property *@
-                                <input type="text" class="form-control form-control-sm" value="555-1234" />
-                                <span class="text-danger small"></span>
+                                <input asp-for="PhoneNumber" class="form-control form-control-sm" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">Address</label>
                             <div class="col-8">
-                                @* TODO: Bind to Address property *@
-                                <input type="text" class="form-control form-control-sm" value="123 Main St" />
-                                <span class="text-danger small"></span>
+                                <input asp-for="StreetAddress" class="form-control form-control-sm" />
+                                <span asp-validation-for="StreetAddress" class="text-danger small"></span>
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">City</label>
                             <div class="col-8">
-                                @* TODO: Bind to City property *@
-                                <input type="text" class="form-control form-control-sm" value="New York" />
-                                <span class="text-danger small"></span>
+                                <input asp-for="City" class="form-control form-control-sm" />
+                                <span asp-validation-for="City" class="text-danger small"></span>
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">State</label>
                             <div class="col-8">
-                                @* TODO: Bind to State property *@
-                                <input type="text" class="form-control form-control-sm" value="NY" />
-                                <span class="text-danger small"></span>
+                                <input asp-for="State" class="form-control form-control-sm" />
+                                <span asp-validation-for="State" class="text-danger small"></span>
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">Zip Code</label>
                             <div class="col-8">
-                                @* TODO: Bind to PostalCode property *@
-                                <input type="text" class="form-control form-control-sm" value="10001" />
-                                <span class="text-danger small"></span>
+                                <input asp-for="PostalCode" class="form-control form-control-sm" />
+                                <span asp-validation-for="PostalCode" class="text-danger small"></span>
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">Email</label>
                             <div class="col-8">
-                                @* TODO: Display user email (read-only) *@
-                                <input type="email" readonly class="form-control-plaintext form-control-sm" value="john@example.com" />
+                                <input asp-for="ApplicationUser.Email" disabled class="form-control form-control-sm" />
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">Order Date</label>
                             <div class="col-8">
-                                @* TODO: Display order date (read-only) *@
-                                <input type="text" readonly class="form-control-plaintext form-control-sm" value="01/15/2024" />
+                                <input type="text" readonly class="form-control-plaintext form-control-sm" value="@Model.OrderDate.ToShortDateString()" />
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">Carrier</label>
                             <div class="col-8">
-                                @* TODO: Bind to Carrier property *@
-                                <input type="text" id="carrier" class="form-control form-control-sm" value="FedEx" />
+                                <input asp-for="Carrier" id="carrier" class="form-control form-control-sm" />
                             </div>
                         </div>
 
                         <div class="row g-2 mb-2">
                             <label class="col-4 col-form-label small fw-medium text-secondary">Tracking</label>
                             <div class="col-8">
-                                @* TODO: Bind to TrackingNumber property *@
-                                <input type="text" id="trackingNumber" class="form-control form-control-sm" value="1234567890" />
+                                <input asp-for="TrackingNumber" type="text" id="trackingNumber" class="form-control form-control-sm" />
                             </div>
                         </div>
 
-                        <div class="row g-2 mb-2">
-                            <label class="col-4 col-form-label small fw-medium text-secondary">Shipping Date</label>
-                            <div class="col-8">
-                                @* TODO: Display shipping date (read-only) *@
-                                <input type="text" readonly class="form-control-plaintext form-control-sm" value="01/16/2024" />
-                            </div>
-                        </div>
-
+                        @if (Model.ShippingDate != default(DateTime))
+                            {
+                                <div class="row g-2 mb-2">
+                                    <label class="col-4 col-form-label small fw-medium text-secondary">Shipping Date</label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext form-control-sm" value="@Model.ShippingDate.ToShortDateString()" />
+                                    </div>
+                                </div>
+                            }
 
                         <button type="submit" class="btn btn-accent w-100 fw-semibold mt-3">
                             Update Order Details
@@ -133,33 +124,32 @@
                         </h6>
 
                         <span class="badge bg-dark mb-3">
-                            <i class="bi bi-info-circle me-1"></i> <span>Pending</span>
-                            @* TODO: Display order status *@
+                            <i class="bi bi-info-circle me-1"></i> <span>@Model.OrderStatus</span>
+                           
                         </span>
 
                         <div class="border rounded overflow-hidden mb-4">
-                            @* TODO: Loop through order items *@
+                            
 
-                            <!-- Sample order item -->
-                            <div class="d-flex justify-content-between align-items-start p-3 border-bottom">
-                                <div>
-                                    <p class="fw-medium small mb-0">Product Name</p>
-                                    @* TODO: Display product title *@
-                                    <p class="text-secondary mb-0" style="font-size: 0.75rem;">
-                                        $99.99 x 2
-                                        @* TODO: Display price and quantity *@
-                                    </p>
-                                </div>
-                                <p class="fw-semibold small mb-0" style="color: #17A34A;">
-                                    $199.98
-                                    @* TODO: Display line total *@
-                                </p>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center p-3 text-white" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+                            @foreach (var details in Model.OrderDetails)
+                                {
+                                    <div class="d-flex justify-content-between align-items-start p-3 border-bottom">
+                                        <div>
+                                            <p class="fw-medium small mb-0">@details.Product.Title</p>
+                                            
+                                            <p class="text-secondary mb-0" style="font-size: 0.75rem;">
+                                                @details.Price.ToString("c") x @details.Count
+                                            </p>
+                                        </div>
+                                        <p class="fw-semibold small mb-0" style="color: #17A34A;">
+                                        @((details.Price * @details.Count).ToString("c"))
+                                        </p>
+                                    </div>
+                                }
+                                <div class="d-flex justify-content-between align-items-center p-3 text-white" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
                                 <span class="fw-bold small text-uppercase">Total</span>
-                                <span class="fw-bold fs-5">$199.98</span>
-                                @* TODO: Display order total *@
+                                <span class="fw-bold fs-5">@Model.OrderTotal.ToString("c")</span>
+                                
                             </div>
                         </div>
 
@@ -182,3 +172,8 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+   
+}
