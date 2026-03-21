@@ -9,6 +9,15 @@
                 <h5 class="mb-0 fw-bold"><i class="bi bi-grid me-2"></i>Orders</h5>
                 <p class="mb-0 small" style="color: #1DB954;">Manage your Orders</p>
             </div>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <span class="text-uppercase fw-semibold me-1" style="font-size: 0.65rem; letter-spacing: 0.1em; color: #94a3b8;">Filter:</span>
+                <a asp-controller="Order" asp-action="Index" asp-route-status="all">All</a>
+                <a asp-controller="Order" asp-action="Index" asp-route-status="pending">Pending</a>
+                <a asp-controller="Order" asp-action="Index" asp-route-status="approved">Approved</a>
+                <a asp-controller="Order" asp-action="Index" asp-route-status="inprocess">InProcess</a>
+                <a asp-controller="Order" asp-action="Index" asp-route-status="completed">Completed</a>
+                <a asp-controller="Order" asp-action="Index" asp-route-status="cancelled">Cancelled</a>
+            </div>
         </div>
         <div class="table-responsive p-3">
             <table id="tblData" class="table-styled">
