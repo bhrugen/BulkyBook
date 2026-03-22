@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-6">
             @* TODO: Add navigation back to user list *@
-            <a href="#" class="d-inline-flex align-items-center gap-2 text-secondary mb-4 text-decoration-none">
+            <a asp-action="Index" class="d-inline-flex align-items-center gap-2 text-secondary mb-4 text-decoration-none">
                 <i class="bi bi-arrow-left"></i> Back to Users
             </a>
 
@@ -17,31 +17,28 @@
 
                 <div class="card-body p-4">
                     <form method="post">
-                        @* TODO: Add hidden field for user ID *@
+                        <input asp-for="ApplicationUser.Id" hidden/>
 
                         <!-- User Info Card -->
                         <div class="alert alert-light border mb-4">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="small text-secondary fw-semibold mb-1">Full Name</label>
-                                    <p class="mb-0 fw-semibold">John Doe</p>
-                                    @* TODO: Display user's full name *@
+                                    <p class="mb-0 fw-semibold">@Model.ApplicationUser.Name</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small text-secondary fw-semibold mb-1">Email</label>
-                                    <p class="mb-0 fw-semibold">john@example.com</p>
-                                    @* TODO: Display user's email *@
+                                    <p class="mb-0 fw-semibold">@Model.ApplicationUser.Email</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small text-secondary fw-semibold mb-1">Phone</label>
-                                    <p class="mb-0">555-1234</p>
-                                    @* TODO: Display user's phone number or "N/A" *@
+                                    <p class="mb-0">@Model.ApplicationUser.PhoneNumber</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small text-secondary fw-semibold mb-1">Current Role</label>
                                     <p class="mb-0">
-                                        <span class="badge bg-secondary">Customer</span>
-                                        @* TODO: Display user's current role *@
+                                        <span class="badge bg-secondary">@Model.ApplicationUser.Role</span>
+                                        
                                     </p>
                                 </div>
                             </div>
@@ -52,12 +49,9 @@
                             <label class="form-label fw-semibold">
                                 <i class="bi bi-person-badge me-1 text-secondary"></i> Assign New Role
                             </label>
-                            @* TODO: Bind dropdown to role property and populate with role list from Constants that we have *@
-                            <select class="form-select form-select-lg">
+                             <select asp-for="ApplicationUser.Role" asp-items="@Model.RoleList"
+                             class="form-select form-select-lg">
                                 <option disabled selected>-- Select Role --</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Employee">Employee</option>
-                                <option value="Customer">Customer</option>
                             </select>
                             <div class="form-text">
                                 <i class="bi bi-info-circle me-1"></i>
@@ -82,7 +76,7 @@
                         <!-- Action Buttons -->
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             @* TODO: Add cancel button linking back to user list *@
-                            <a href="#" class="btn btn-outline-secondary px-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4">
                                 <i class="bi bi-x-circle me-1"></i> Cancel
                             </a>
                             <button type="submit" class="btn btn-success px-4">
