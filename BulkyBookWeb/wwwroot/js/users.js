@@ -16,12 +16,20 @@ function loadDataTable() {
             },
             {
                 data: 'id', "width": "25%", "render": function (data) {
+
+                    var today = new Date().getTime();
+                    var lockout = new Date(data.lockoutEnd).getTime();
+                    var isLocked = lockout > today;
+
                     return `<div class="d-flex gap-2 justify-content-end">
-                            <a href="/admin/product/upsert?id=${data}" class="btn btn-sm btn-outline-success">
-                                 <i class="bi bi-pencil-square"></i> Edit
+                    <a onclick="LockUnlock('${data}')" class="btn btn-sm ${isLocked ? 'btn-danger' : 'btn-success'}">
+                                 <i class="bi bi-${isLocked ? 'lock' : 'unlock'}-fill"></i> ${isLocked ?'Lock':'Unlock'}
                             </a>
-                              <a onclick="Delete('/admin/product/delete/${data}')" class="btn btn-sm btn-outline-danger">
-                                 <i class="bi bi-trash"></i> Delete
+                            <a href="/admin/user/RoleManagment?userId=${data}" class="btn btn-sm btn-outline-secondary">
+                                 <i class="bi bi-person-badge"></i> Role
+                            </a>
+                              <a onclick="Delete('/admin/user/ChangePassword?userId=${data}')" class="btn btn-sm btn-outline-danger">
+                                 <i class="bi bi-key-fill"></i> Password
                             </a>
                         </div > `;
                 }
@@ -30,31 +38,3 @@ function loadDataTable() {
     });
 }
 
-
-function Delete(url) {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                success: function (data) {
-                    productDataTable.ajax.reload();
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                    });
-                }
-            })
-        }
-    });
-}
