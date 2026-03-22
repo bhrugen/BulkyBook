@@ -2,6 +2,7 @@
 using BulkyBook.Business.Services.IServices;
 using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
+using BulkyBook.Utiltiy;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.RoleAdmin+","+SD.RoleEmployee)]
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -74,6 +76,58 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             TempData["success"] = "Role has been updated";
             return RedirectToAction(nameof(Index));
         }
+
+
+
+        public async Task<IActionResult> ChangePassword(string userId)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found" });
+            }
+
+            AdminChangePasswordVM adminChangePassowordVM = new()
+            {
+                UserEmail=user.Email,
+                UserId=user.Id
+            };
+
+            return View(adminChangePassowordVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(AdminChangePasswordVM adminChangePasswordVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(adminChangePasswordVM);
+            }
+            var user = await _userService.GetUserByIdAsync(adminChangePasswordVM.UserId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, adminChangePasswordVM.NewPassword);
+            if (result.Succeeded)
+            {
+                TempData["success"] = $"Password for {user.Email} has been changed successfully.";
+                return RedirectToAction(nameof(Index));
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            adminChangePasswordVM.UserEmail = user.Email;
+            return View(adminChangePasswordVM);
+            
+        }
+
+
+
 
         #region API CALLS
         [AllowAnonymous]

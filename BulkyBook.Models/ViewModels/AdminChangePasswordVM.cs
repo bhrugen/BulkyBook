@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BulkyBook.Models.ViewModels
 {
-    public class AdminChangePassowordVM
+    public class AdminChangePasswordVM
     {
         public string UserId { get; set; }
 
