@@ -1,0 +1,33 @@
+﻿
+<div class="container-fluid">
+    <div class="card border shadow-sm overflow-hidden">
+        <div class="card-header text-white py-3 px-4 d-flex align-items-center justify-content-between" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+            <div>
+                <h5 class="mb-0 fw-bold"><i class="bi bi-people me-2"></i>Users</h5>
+                <p class="mb-0 small" style="color: #1DB954;">Manage user accounts and roles</p>
+            </div>
+            @* TODO: Add link to user registration page *@
+            <a href="#" class="btn btn-sm btn-outline-light fw-semibold d-inline-flex align-items-center gap-1">
+                <i class="bi bi-person-plus"></i> Create User
+            </a>
+        </div>
+        <div class="card-body" style="min-height: 500px;">
+            <table id="tblData" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/users.js" asp-append-version="true"></script>
+}
