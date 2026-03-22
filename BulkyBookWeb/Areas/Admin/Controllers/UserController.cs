@@ -53,6 +53,27 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
             return View(RoleVM);
         }
+        [HttpPost]
+        public async Task<IActionResult> RoleManagment(RoleManagmentVM roleManagmentVM)
+        {
+            var user = await _userService.GetUserByIdAsync(roleManagmentVM.ApplicationUser.Id);
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found" });
+            }
+
+            string oldRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+
+            if(!(roleManagmentVM.ApplicationUser.Role == oldRole))
+            {
+                //update Role
+                await _userManager.RemoveFromRoleAsync(user, oldRole);
+                await _userManager.AddToRoleAsync(user, roleManagmentVM.ApplicationUser.Role);
+            }
+            TempData["success"] = "Role has been updated";
+            return RedirectToAction(nameof(Index));
+        }
 
         #region API CALLS
         [AllowAnonymous]
