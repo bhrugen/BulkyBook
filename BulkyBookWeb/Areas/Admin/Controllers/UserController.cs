@@ -1,6 +1,7 @@
 ﻿using BulkyBook.Business.Services;
 using BulkyBook.Business.Services.IServices;
 using BulkyBook.Models;
+using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,28 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return View();
         }
 
+        public async Task<IActionResult> RoleManagment(string userId)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found" });
+            }
+
+            RoleManagmentVM RoleVM = new()
+            {
+                ApplicationUser = user,
+                RoleList = _roleManager.Roles.Select(u => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Name
+                })
+            };
+            RoleVM.ApplicationUser.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+
+            return View(RoleVM);
+        }
 
         #region API CALLS
         [AllowAnonymous]
