@@ -37,7 +37,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         {
             var users = await _userService.GetAllUsersAsync();
 
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 user.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
             }
@@ -45,7 +45,29 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return Json(new { data = users });
         }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> LockUnlock([FromBody] string userId)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "User not found" });
+            }
+
+            if(await _userManager.IsLockedOutAsync(user))
+            {
+                await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow);
+                return Json(new { success = true, message = "User unlocked successfully" });
+            }
+            else
+            {
+                await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow.AddYears(1000));
+                return Json(new { success = true, message = "User locked successfully" });
+            }
+        }
+
+
         #endregion
     }
 }
