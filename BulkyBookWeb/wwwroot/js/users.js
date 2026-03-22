@@ -28,7 +28,7 @@ function loadDataTable() {
                             <a href="/admin/user/RoleManagment?userId=${data.id}" class="btn btn-sm btn-outline-secondary">
                                  <i class="bi bi-person-badge"></i> Role
                             </a>
-                              <a onclick="Delete('/admin/user/ChangePassword?userId=${data.id}')" class="btn btn-sm btn-outline-danger">
+                              <a href="/admin/user/ChangePassword?userId=${data.id}" class="btn btn-sm btn-outline-danger">
                                  <i class="bi bi-key-fill"></i> Password
                             </a>
                         </div > `;
