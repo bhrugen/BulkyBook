@@ -51,20 +51,7 @@
                         </ul>
                     <div class="d-flex align-items-center gap-3">
                         
-                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index"
-                               class="cart-btn text-decoration-none d-none d-lg-flex align-items-center gap-2 px-3 py-2"
-                               style="background: rgba(255,255,255,0.05); border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);">
-                            <div class="cart-icon-circle d-flex align-items-center justify-content-center rounded-circle"
-                                 style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); transition: all 0.3s ease;">
-                                <i class="bi bi-cart2" style="font-size: 1rem; color: #e5e7eb;"></i>
-                            </div>
-                            <div class="d-flex flex-column" style="line-height: 1.2;">
-                                <span style="font-size: 0.65rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Cart</span>
-                                <span class="cart-count" style="font-size: 0.85rem; color: #fff; font-weight: 600; transition: all 0.3s ease;">
-                                    @((Context.Session.GetInt32(SD.SessionCart)?? 0)) Items
-                                </span>
-                            </div>
-                        </a>
+                        @await Component.InvokeAsync("CartCount");
                       <partial name="_LoginPartial"/>
                     </div>
                 </div>
