@@ -61,7 +61,7 @@
                             <div class="d-flex flex-column" style="line-height: 1.2;">
                                 <span style="font-size: 0.65rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Cart</span>
                                 <span class="cart-count" style="font-size: 0.85rem; color: #fff; font-weight: 600; transition: all 0.3s ease;">
-                                    @Context.Session.GetInt32(SD.SessionCart) Items
+                                    @((Context.Session.GetInt32(SD.SessionCart)?? 0)) Items
                                 </span>
                             </div>
                         </a>
