@@ -57,4 +57,23 @@
 			}
 		}
 	});
+
+
+
+	new Chart(document.getElementById('categoryChart'), {
+		type: 'bar',
+		data: {
+			labels: data.productsPerCategory.map(r => r.category),
+			datasets: [{
+				label: 'Products by Category',
+				data: data.productsPerCategory.map(r => r.count),
+				borderWidth: 1
+			}]
+		},
+		options: {
+			indexAxis: 'y',
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
 })
