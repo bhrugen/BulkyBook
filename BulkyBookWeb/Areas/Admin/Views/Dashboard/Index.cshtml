@@ -1,1 +1,107 @@
-﻿<h1>Hello, Admin</h1>
+﻿@model DashboardVM
+
+<div class="mb-4">
+    <h1 class="h4 fw-bold">Welcome back! 👋</h1>
+    <p class="text-secondary small mb-0">Here's what's happening with your store.</p>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card border shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="rounded d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #dbeafe;">
+                        <i class="bi bi-currency-dollar" style="color: #3b82f6;"></i>
+                    </div>
+                    <span class="text-uppercase fw-semibold text-secondary" style="font-size: 0.6rem; letter-spacing: 0.05em;">Revenue</span>
+                </div>
+                <p class="h4 fw-bold mb-0">@Model.TotalRevenue</p>
+                <p class="text-secondary mb-0" style="font-size: 0.75rem;">From approved orders</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a asp-controller="Order" asp-action="Index" class="card border shadow-sm h-100 text-decoration-none">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="rounded d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #d1fae5;">
+                        <i class="bi bi-truck" style="color: #10b981;"></i>
+                    </div>
+                    <span class="text-uppercase fw-semibold text-secondary" style="font-size: 0.6rem; letter-spacing: 0.05em;">Orders</span>
+                </div>
+                <p class="h4 fw-bold text-dark mb-0">@Model.TotalOrders</p>
+                <p class="text-secondary mb-0" style="font-size: 0.75rem;">View all orders &rarr;</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a asp-controller="Product" asp-action="Index" class="card border shadow-sm h-100 text-decoration-none">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="rounded d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #f3e8ff;">
+                        <i class="bi bi-book" style="color: #8b5cf6;"></i>
+                    </div>
+                    <span class="text-uppercase fw-semibold text-secondary" style="font-size: 0.6rem; letter-spacing: 0.05em;">Products</span>
+                </div>
+                <p class="h4 fw-bold text-dark mb-0">@Model.TotalProducts</p>
+                <p class="text-secondary mb-0" style="font-size: 0.75rem;">Manage products &rarr;</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a asp-controller="User" asp-action="Index" class="card border shadow-sm h-100 text-decoration-none">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="rounded d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #fef3c7;">
+                        <i class="bi bi-people" style="color: #f59e0b;"></i>
+                    </div>
+                    <span class="text-uppercase fw-semibold text-secondary" style="font-size: 0.6rem; letter-spacing: 0.05em;">Users</span>
+                </div>
+                <p class="h4 fw-bold text-dark mb-0">@Model.TotalUsers</p>
+                <p class="text-secondary mb-0" style="font-size: 0.75rem;">Manage users &rarr;</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- Charts Row 1 -->
+<div class="row g-3 mb-4">
+    <div class="col-lg-6">
+        <div class="card border shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3"><i class="bi bi-graph-up me-1" style="color: #3b82f6;"></i> Revenue Trend</h6>
+                <div style="height: 250px;">CHART 1</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card border shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3"><i class="bi bi-bar-chart me-1" style="color: #10b981;"></i> Orders Per Month</h6>
+                <div style="height: 250px;">CHART 2</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row 2 -->
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="card border shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3"><i class="bi bi-circle-half me-1" style="color: #f59e0b;"></i> Order Status</h6>
+                <div style="height: 200px;" class="d-flex align-items-center justify-content-center">CHART 3</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3"><i class="bi bi-tags me-1" style="color: #8b5cf6;"></i> Products by Category</h6>
+                <div style="height: 200px;" class="d-flex align-items-center justify-content-center">CHART 4</div>
+            </div>
+        </div>
+    </div>
+</div>
+
