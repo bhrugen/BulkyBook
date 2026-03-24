@@ -17,4 +17,23 @@
 			}
 		}
 	});
+
+	new Chart(document.getElementById('ordersChart'), {
+		type: 'bar',
+		data: {
+			labels: data.monthlyOrders.map(r => r.label),
+			datasets: [{
+				label: 'Orders by Month',
+				data: data.monthlyOrders.map(r => r.count),
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
 })
