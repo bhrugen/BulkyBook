@@ -71,7 +71,9 @@
         <div class="card border shadow-sm">
             <div class="card-body">
                 <h6 class="fw-semibold mb-3"><i class="bi bi-graph-up me-1" style="color: #3b82f6;"></i> Revenue Trend</h6>
-                <div style="height: 250px;">CHART 1</div>
+                <div style="height: 250px;">
+                        <canvas id="myChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -105,3 +107,27 @@
     </div>
 </div>
 
+                @section Scripts{
+                    <script>
+                        const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+                    </script>
+                }
