@@ -95,5 +95,24 @@ namespace BulkyBook.Business.Services
 
             await _db.SaveChangesAsync();
         }
+
+        public async Task UpdateStripePaymentAsync(int orderId, string sessionId, string paymentIntentId)
+        {
+            var order = await _db.OrderHeaders.FindAsync(orderId);
+            if (order == null)
+            {
+                throw new KeyNotFoundException($"Order {orderId} not found");
+            }
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                order.SessionId=sessionId;
+            }
+            if (!string.IsNullOrEmpty(paymentIntentId))
+            {
+                order.PaymentIntentId = paymentIntentId;
+            }
+
+            await _db.SaveChangesAsync();
+        }
     }
 }
