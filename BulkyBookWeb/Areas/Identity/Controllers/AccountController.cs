@@ -87,12 +87,7 @@ namespace BulkyBookWeb.Areas.Identity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVM registerVM, string? returnUrl = null)
         {
-            if(!await _roleManager.RoleExistsAsync(SD.RoleCustomer))
-            {
-                await _roleManager.CreateAsync(new IdentityRole(SD.RoleCustomer));
-                await _roleManager.CreateAsync(new IdentityRole(SD.RoleAdmin));
-                await _roleManager.CreateAsync(new IdentityRole(SD.RoleEmployee));
-            }
+           
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
