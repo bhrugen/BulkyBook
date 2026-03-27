@@ -216,20 +216,20 @@
                                     @if (Model.OrderStatus == SD.StatusApproved)
                                     {
                                         <button type="submit" asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusInProcess" class="btn btn-accent fw-semibold">
-                                            Start Processing
+                                        <i class="bi bi-arrow-right-circle me-1"></i>  Start Processing
                                         </button>
                                     }
                                     @if (Model.OrderStatus == SD.StatusInProcess)
                                     {
                                         <button asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusShipped" type="submit" onclick="return validateInput()" class="btn btn-warning fw-semibold">
-                                            Ship Order
+                                        <i class="bi bi-truck me-1"></i>   Ship Order
                                         </button>
                                     }
 
-                                    @if (Model.OrderStatus != SD.StatusRefunded && Model.OrderStatus != SD.StatusCancelled && Model.OrderStatus != SD.StatusShipped)
+                                @if (Model.OrderStatus == SD.StatusApproved || Model.OrderStatus == SD.StatusInProcess)
                                     {
                                         <button  asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusCancelled" type="submit" class="btn btn-danger fw-semibold">
-                                            Cancel Order
+                                        <i class="bi bi-x-circle me-1"></i>  Cancel Order
                                         </button>
                                     }
                                 </div>
