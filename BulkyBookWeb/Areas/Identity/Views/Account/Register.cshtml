@@ -1,4 +1,5 @@
-﻿@model RegisterVM
+﻿@using BulkyBook.Utiltiy
+@model RegisterVM
 
 
 <div class="container mb-4">
@@ -73,13 +74,16 @@
                                 <input asp-for="PostalCode" type="text" class="form-control" placeholder="10001" />
                                 <span asp-validation-for="PostalCode" class="text-danger"></span>
                             </div>
-                            <div class="col-md-12 mb-3">
-                                <label asp-for="Role" class="form-label"></label>
-                                <select asp-for="Role" asp-items="@Model.RoleList"  class="form-select" >
-                                    <option disabled selected>- Select Role -</option>
-                                </select>
+                            @if (User.IsInRole(SD.RoleAdmin))
+                                {
+                                    <div class="col-md-12 mb-3">
+                                        <label asp-for="Role" class="form-label"></label>
+                                        <select asp-for="Role" asp-items="@Model.RoleList"  class="form-select" >
+                                            <option disabled selected>- Select Role -</option>
+                                        </select>
+                                    </div>
+                                }
                             </div>
-                        </div>
 
                         <button type="submit" class="btn btn-accent btn-lg w-100 mb-3">
                             <i class="bi bi-person-check me-2"></i>Register
