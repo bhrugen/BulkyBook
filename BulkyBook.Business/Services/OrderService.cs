@@ -157,7 +157,14 @@ namespace BulkyBook.Business.Services
             }
             if (!string.IsNullOrEmpty(status) && status.ToLower()!="all")
             {
-                query = query.Where(u => u.OrderStatus.ToLower() == status.ToLower());
+                if (status.ToLower() == "cancelled")
+                {
+                    query = query.Where(u => u.OrderStatus == SD.StatusCancelled || u.OrderStatus == SD.StatusRefunded);
+                }
+                else
+                {
+                    query = query.Where(u => u.OrderStatus.ToLower() == status.ToLower());
+                }
             }
             return await query.ToListAsync();
         }
