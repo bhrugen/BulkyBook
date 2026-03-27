@@ -111,6 +111,25 @@
     display: none !important;
 }
 
+/* Remove bullets from validation error lists */
+.validation-summary-errors ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.validation-summary-errors li {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+    background-color: #fee;
+    border-left: 3px solid #dc3545;
+    border-radius: 0.25rem;
+}
+
+.validation-summary-errors li:last-child {
+    margin-bottom: 0;
+}
+
 /* Sticky sidebar for cart page (lg+ only) */
 @media (min-width: 992px) {
     .position-lg-sticky {
