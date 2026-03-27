@@ -150,10 +150,45 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public async Task<IActionResult> OrderConfirmation(int id)
         {
+            var orderHeader = await _orderService.GetOrderByIdAsync(id, includeUser: true);
+            if (orderHeader == null)
+            {
+                return NotFound();
+            }
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+            if (orderHeader.ApplicationUserId != userId)
+            {
+                return RedirectToAction("AccessDenied", "Account", new { area = "Identity" });
+            }
+
+            try
+            {
+                var service = new SessionService();
+                 Session session = service.Get(orderHeader.SessionId);
+                if (session.PaymentStatus.ToLower() == "paid")
+                {
+                    await _orderService.UpdateStripePaymentAsync(id, session.Id, session.PaymentIntentId);
+                    await _orderService.UpdateOrderStatusAsync(id, SD.StatusApproved);
+                    TempData["success"] = "Payment completed successfully! Your order has been confirmed.";
+                }
+                else
+                {
+                    TempData["warning"] = "Payment status is pending. Please contact support if you completed the payment.";
+                }
+            }
+            catch(Exception ex)
+            {
+                TempData["error"] = "Unable to verify payment status. Please contact support with your order number.";
+            }
 
             var user = await _applicationUserService.GetUserByIdAsync(userId);
             await _emailService.SendOrderConfirmationEmailAsync(user.Email,
-                shoppingCartVM.OrderHeader.Id, (decimal)shoppingCartVM.OrderHeader.OrderTotal);
+                orderHeader.Id, (decimal)orderHeader.OrderTotal);
 
 
             return View(id);
