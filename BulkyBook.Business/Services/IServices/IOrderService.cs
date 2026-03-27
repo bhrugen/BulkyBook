@@ -18,5 +18,12 @@ namespace BulkyBook.Business.Services.IServices
         Task UpdateOrderStatusAsync(int id, string orderStatus, string? carrier = null, string? trackingNumber = null);
 
         Task UpdateStripePaymentAsync(int orderId, string sessionId, string paymentIntentId);
+
+        Task<bool> CancelOrderWithRefundAsync(int orderId);
+
+        Task<string> CreateStripeCheckoutSessionAsync(OrderHeader orderHeader, IEnumerable<ShoppingCart> cartItems, string domain);
+
+        Task<bool> VerifyStripePaymentAsync(OrderHeader orderHeader);
+
     }
 }

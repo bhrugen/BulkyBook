@@ -1,11 +1,14 @@
 ﻿using BulkyBook.Business.Services.IServices;
 using BulkyBook.Models;
+using BulkyBook.Models.ViewModels;
 using BulkyBook.Utiltiy;
 using BulkyBookWeb.Data;
 using Microsoft.EntityFrameworkCore;
+using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BulkyBook.Business.Services
 {
@@ -18,12 +21,67 @@ namespace BulkyBook.Business.Services
             _db = db;
         }
 
+        public Task<bool> CancelOrderWithRefundAsync(int orderId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<OrderHeader> CreateOrderAsync(OrderHeader orderHeader)
         {
            _db.OrderHeaders.Add(orderHeader);
             await _db.SaveChangesAsync();
 
             return orderHeader;
+        }
+
+        public async Task<string> CreateStripeCheckoutSessionAsync(OrderHeader orderHeader, IEnumerable<ShoppingCart> cartItems, string domain)
+        {
+            if (orderHeader == null)
+            {
+                throw new ArgumentNullException(nameof(orderHeader));
+            }
+
+            if (cartItems == null || !cartItems.Any())
+            {
+                throw new ArgumentException("Cart items cannot be empty", nameof(cartItems));
+            }
+
+            var options = new Stripe.Checkout.SessionCreateOptions
+            {
+                SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={orderHeader.Id}",
+                CancelUrl = domain + "customer/cart/index",
+                LineItems = new List<SessionLineItemOptions>(),
+                Mode = "payment",
+                Metadata = new Dictionary<string, string>
+                        {
+                            { "OrderId", orderHeader.Id.ToString() }
+                        }
+            };
+
+
+            foreach (var item in cartItems)
+            {
+
+                var sessionLineItem = new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = (long)(item.Price * 100),
+                        Currency = "usd",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = item.Product.Title
+                        }
+                    },
+                    Quantity = item.Count,
+                };
+                options.LineItems.Add(sessionLineItem);
+            }
+
+            var service = new SessionService();
+            Session session = service.Create(options);
+            await UpdateStripePaymentAsync(orderHeader.Id, session.Id, session.PaymentIntentId);
+            return session.Url;
         }
 
         public async Task<IEnumerable<OrderHeader>> GetAllOrderAsync(string? userId = null, string? status = null, bool includeUser = false, bool includeDetails = false)
@@ -113,6 +171,22 @@ namespace BulkyBook.Business.Services
             }
 
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<bool> VerifyStripePaymentAsync(OrderHeader orderHeader)
+        {
+            var service = new SessionService();
+            Session session = service.Get(orderHeader.SessionId);
+            if (session.PaymentStatus.ToLower() == "paid")
+            {
+                await UpdateStripePaymentAsync(orderHeader.Id, session.Id, session.PaymentIntentId);
+                await UpdateOrderStatusAsync(orderHeader.Id, SD.StatusApproved);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
