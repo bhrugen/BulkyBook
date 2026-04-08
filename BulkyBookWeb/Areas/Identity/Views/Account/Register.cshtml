@@ -123,7 +123,7 @@
             const placeAutocomplete = new google.maps.places.PlaceAutocompleteElement({});
             
             inputAddress.parentNode.insertBefore(placeAutocomplete,inputAddress);
-            
+            inputAddress.style.display = 'none';
             
             placeAutocomplete.addEventListener('gmp-select', async ({ placePrediction }) => {
                 const place = placePrediction.toPlace();
