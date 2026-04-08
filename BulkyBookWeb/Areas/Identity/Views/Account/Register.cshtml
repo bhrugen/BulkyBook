@@ -127,8 +127,53 @@
             
             placeAutocomplete.addEventListener('gmp-select', async ({ placePrediction }) => {
                 const place = placePrediction.toPlace();
-                await place.fetchFields({ fields: [ 'formattedAddress'] });
-               inputAddress.value = place.formattedAddress || '';
+                await place.fetchFields({ fields: [ 'addressComponents'] });
+
+                const addressComponents = place.addressComponents;
+
+                // Get input fields
+                const inputCity = document.getElementById('City');
+                const inputState = document.getElementById('State');
+                const inputPostalCode = document.getElementById('PostalCode');
+
+                // Reset fields
+                inputAddress.value = '';
+                inputCity.value = '';
+                inputState.value = '';
+                inputPostalCode.value = '';
+
+                if(addressComponents)
+                {
+                    let streetNumber = '';
+                    let route = '';
+
+                    addressComponents.forEach(component => {
+                        const types = component.types;
+
+                        if(types.includes('street_number')){
+                            streetNumber = component.longText;
+                        }
+                        if (types.includes('route')) {
+                            route = component.longText;
+                        }
+                         if (types.includes('locality')) {
+                            inputCity.value = component.longText;
+                        }
+                        if (types.includes('administrative_area_level_1')) {
+                            inputState.value = component.longText;
+                        }
+                        if (types.includes('postal_code')) {
+                            inputPostalCode.value = component.longText;
+                        }
+
+                    });
+
+
+                    inputAddress.value = [streetNumber, route].filter(Boolean).join(' ');
+                }
+
+
+              
             });
         }
     </script>
