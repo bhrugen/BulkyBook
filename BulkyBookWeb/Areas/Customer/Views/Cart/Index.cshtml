@@ -110,20 +110,20 @@
                                 <i class="bi bi-geo-alt" style="color: #17A34A;"></i> Shipping Address
                             </h6>
                             <div class="mb-2">
-                                <input asp-for="OrderHeader.StreetAddress" class="form-control form-control-sm" placeholder="Street Address" />
+                                <input asp-for="OrderHeader.StreetAddress" id="StreetAddress" class="form-control form-control-sm" placeholder="Street Address" />
                                 <span asp-validation-for="OrderHeader.StreetAddress" class="text-danger" style="font-size: 0.65rem;"></span>
                             </div>
                             <div class="row g-2">
                                 <div class="col-5">
-                                    <input asp-for="OrderHeader.City" class="form-control form-control-sm" placeholder="City" />
+                                    <input asp-for="OrderHeader.City" id="City" class="form-control form-control-sm" placeholder="City" />
                                     <span asp-validation-for="OrderHeader.City" class="text-danger" style="font-size: 0.65rem;"></span>
                                 </div>
                                 <div class="col-3">
-                                    <input asp-for="OrderHeader.State" class="form-control form-control-sm" placeholder="State" />
+                                    <input asp-for="OrderHeader.State" id="State" class="form-control form-control-sm" placeholder="State" />
                                     <span asp-validation-for="OrderHeader.State" class="text-danger" style="font-size: 0.65rem;"></span>
                                 </div>
                                 <div class="col-4">
-                                    <input asp-for="OrderHeader.PostalCode" class="form-control form-control-sm" placeholder="Zip Code" />
+                                    <input asp-for="OrderHeader.PostalCode" id="PostalCode" class="form-control form-control-sm" placeholder="Zip Code" />
                                     <span asp-validation-for="OrderHeader.PostalCode" class="text-danger" style="font-size: 0.65rem;"></span>
                                 </div>
                             </div>
@@ -189,4 +189,15 @@
     </script>
 
     <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/js/addressLookupGoogleAPI.js">
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.GoogleMapsApiKey&libraries=places&callback=initAutoComplete">
+    </script>
+    <script>
+        async function initAutoComplete(){
+            await initAddressAutocomplete('StreetAddress', 'City', 'State', 'PostalCode');
+        }
+    </script>
 }

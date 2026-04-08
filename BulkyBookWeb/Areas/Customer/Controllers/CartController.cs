@@ -19,18 +19,21 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         private readonly IOrderService _orderService;
         private readonly IEmailService _emailService;
         private readonly IShoppingCartService _shoppingCartService;
+        private readonly IConfiguration _configuration;
         private readonly IApplicationUserService _applicationUserService;
-        public CartController(IOrderService orderService,IEmailService emailService,
+        public CartController(IOrderService orderService,IEmailService emailService, IConfiguration configuration,
             IShoppingCartService shoppingCartService, IApplicationUserService applicationUserService)
         {
             _orderService = orderService;
             _emailService= emailService;
+            _configuration = configuration;
             _shoppingCartService = shoppingCartService;
             _applicationUserService = applicationUserService;
         }
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.GoogleMapsApiKey = _configuration["Google:MapsApiKey"];
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId))
