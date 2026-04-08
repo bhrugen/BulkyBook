@@ -16,11 +16,14 @@ namespace BulkyBookWeb.Areas.Identity.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IShoppingCartService _shoppingCartService;
+        private readonly IConfiguration _configuration;
 
         public AccountController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            IConfiguration configuration,
             RoleManager<IdentityRole> roleManager, IShoppingCartService shoppingCartService)
         {
+            _configuration = configuration;
             _userManager = userManager;
             _shoppingCartService= shoppingCartService;
             _signInManager = signInManager;
@@ -64,7 +67,7 @@ namespace BulkyBookWeb.Areas.Identity.Controllers
         {
 
             var model = new RegisterVM();
-
+            ViewBag.GoogleMapsApiKey = _configuration["Google:MapsApiKey"];
 
             if (User.IsInRole(SD.RoleAdmin))
             {

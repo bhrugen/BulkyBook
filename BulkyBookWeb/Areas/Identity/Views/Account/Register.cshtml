@@ -52,7 +52,7 @@
 
                         <div class="mb-3">
                             <label asp-for="StreetAddress" class="form-label"></label>
-                            <input asp-for="StreetAddress" type="text" class="form-control" placeholder="123 Main St" />
+                            <input asp-for="StreetAddress" id="StreetAddress" type="text" class="form-control" placeholder="123 Main St" />
                             <span asp-validation-for="StreetAddress" class="text-danger"></span>
                         </div>
 
@@ -108,4 +108,28 @@
                             
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.GoogleMapsApiKey&libraries=places&callback=initAutoComplete">
+    </script>
+
+    <script>
+
+        async function initAutoComplete() {
+           
+            const inputAddress = document.getElementById('StreetAddress');
+
+            // Create the input HTML element, and append it.
+            const placeAutocomplete = new google.maps.places.PlaceAutocompleteElement({});
+            
+            inputAddress.parentNode.insertBefore(placeAutocomplete,inputAddress);
+            
+            
+            placeAutocomplete.addEventListener('gmp-select', async ({ placePrediction }) => {
+                const place = placePrediction.toPlace();
+                await place.fetchFields({ fields: [ 'formattedAddress'] });
+               inputAddress.value = place.formattedAddress || '';
+            });
+        }
+    </script>
 }
