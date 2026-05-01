@@ -5,7 +5,7 @@ A full-featured e-commerce web application built with **ASP.NET Core MVC** and *
 ## 🎓 About This Project
 
 This project is part of the comprehensive .NET Mastery course available at:  
-**[Complete Guide to ASP.NET Core MVC (.NET 9)](https://www.dotnetmastery.com/Home/Details?courseId=9)**
+**[Complete Guide to ASP.NET Core MVC (.NET 11)](https://www.dotnetmastery.com/Home/Details?courseId=9)**
 
 Learn modern web development with ASP.NET Core, from fundamentals to advanced topics including:
 - MVC Architecture Pattern
@@ -20,7 +20,7 @@ Learn modern web development with ASP.NET Core, from fundamentals to advanced to
 ## 🚀 Technologies & Features
 
 ### **Backend**
-- **ASP.NET Core MVC** (.NET 9/11)
+- **ASP.NET Core MVC** (.NET 11)
 - **Entity Framework Core** with SQL Server
 - **ASP.NET Core Identity** for authentication & authorization
 - **Repository Pattern** for data access
@@ -152,7 +152,6 @@ After first run, use these credentials to login as admin:
 
 ## 🌐 Deployment to Azure
 
-See the detailed guide in `AZURE_DEPLOYMENT_GUIDE.md` for step-by-step Azure deployment instructions.
 
 ### Quick Steps:
 1. Create Azure SQL Database
