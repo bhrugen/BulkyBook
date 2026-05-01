@@ -1,0 +1,66 @@
+﻿@using BulkyBook.Utiltiy
+@{
+    var inactive = "btn btn-outline-secondary btn-sm";
+    var active = "btn btn-sm text-white bg-success";
+    var status = Context.Request.Query["status"];
+    var pending = inactive;
+    var processing = inactive;
+    var shipped = inactive;
+    var approved = inactive;
+    var cancelled = inactive;
+    var all = inactive;
+
+    switch (status)
+    {
+        case "pending":pending = active; break;
+        case "processing": processing = active; break;
+        case "shipped": shipped = active; break;
+        case "approved": approved = active; break;
+        case "cancelled": cancelled = active; break;
+        default: all = active; break;
+    }
+
+    var isCustomer = User.IsInRole(SD.RoleCustomer);
+    var containerClass = isCustomer ? "container my-4 pt-3" : "container-fluid py-4";
+}
+
+<div class="@containerClass">
+
+
+    <div class="card border shadow-sm overflow-hidden">
+        <div class="card-header text-white py-3 px-4 d-flex align-items-center justify-content-between" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+            <div>
+                <h5 class="mb-0 fw-bold"><i class="bi bi-grid me-2"></i>Orders</h5>
+                <p class="mb-0 small" style="color: #1DB954;">Manage your Orders</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <span class="text-uppercase fw-semibold me-1" style="font-size: 0.65rem; letter-spacing: 0.1em; color: #94a3b8;">Filter:</span>
+                <a class="@all" asp-controller="Order"  asp-action="Index" asp-route-status="all">All</a>
+                <a class="@pending" asp-controller="Order" asp-action="Index" asp-route-status="pending">Pending</a>
+                <a class="@approved" asp-controller="Order" asp-action="Index" asp-route-status="approved">Approved</a>
+                <a class="@processing" asp-controller="Order" asp-action="Index" asp-route-status="processing">Processing</a>
+                <a class="@shipped" asp-controller="Order" asp-action="Index" asp-route-status="shipped">Shipped</a>
+                <a class="@cancelled" asp-controller="Order" asp-action="Index" asp-route-status="cancelled">Cancelled</a>
+            </div>
+        </div>
+        <div class="table-responsive p-3">
+            <table id="tblData" class="table-styled">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/orders.js" asp-append-version="true"></script>
+}

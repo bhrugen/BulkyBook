@@ -1,11 +1,14 @@
 ﻿using BulkyBook.Business.Services.IServices;
 using BulkyBook.Models;
+using BulkyBook.Utiltiy;
 using BulkyBookWeb.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBookWeb.Areas.Customer.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.RoleAdmin)]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -13,6 +16,8 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         {
             _categoryService= categoryService;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var categories = await _categoryService.GetAllCategoriesAsync();

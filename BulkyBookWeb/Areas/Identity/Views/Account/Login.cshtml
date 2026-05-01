@@ -1,0 +1,60 @@
+﻿@model LoginVM
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border overflow-hidden">
+                <div class="card-header text-white py-3 px-4 text-center" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+                    <i class="bi bi-box-arrow-in-right display-4"></i>
+                    <h4 class="fw-bold mt-2 mb-1">Welcome Back</h4>
+                    <p class="mb-0 small" style="color: #1DB954;">Log in to your account</p>
+                </div>
+
+                <div class="card-body p-5">
+                    <form method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email"  class="form-label">Email</label>
+                                <input asp-for="Email" type="email" class="form-control form-control-lg" placeholder="name@example.com" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Email</label>
+                            <input asp-for="Password" type="password" class="form-control form-control-lg" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input asp-for="RememberMe" type="checkbox" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label">Remember me?</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-accent btn-lg w-100 mb-3">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Log In
+                        </button>
+
+                        <div class="text-center">
+                            <a href="#" class="text-decoration-none">Forgot your password?</a>
+                        </div>
+                    </form>
+
+                    <hr class="my-4" />
+
+                    <div class="text-center">
+                        <p class="mb-0">Don't have an account? <a asp-action="Register" 
+                                                      asp-route-returnUrl="@ViewData["ReturnUrl"]"
+                            class="fw-semibold text-decoration-none" style="color: #17A34A;">Register now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}

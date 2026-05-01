@@ -1,9 +1,9 @@
-﻿@model Product
+﻿@model ShoppingCart
 
 <div class="container py-4">
     
     <form method="post">
-        <!-- TODO: Add hidden field for ProductId -->
+        <input hidden asp-for="ProductId" />
 
         <div class="mb-3">
             
@@ -16,9 +16,9 @@
             <div class="row g-0">
                 <!-- Image -->
                 <div class="col-lg-5 d-flex align-items-stretch" style="background: linear-gradient(135deg, #1e293b, #334155, #475569); min-height: 480px;">
-                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    @if (!string.IsNullOrEmpty(Model.Product.ImageUrl))
                         {
-                            <img src="@Model.ImageUrl" class="w-100" style="object-fit: cover;"/>
+                        <img src="@Model.Product.ImageUrl" class="w-100" style="object-fit: cover;" />
                         }
                         else
                         {
@@ -33,18 +33,18 @@
                 <div class="col-lg-7 p-4 p-lg-5">
                     
                     <span class="badge mb-3" style="background: rgba(23,163,74,0.1); color: #17A34A;">
-                        <i class="bi bi-bookmark me-1"></i> @Model.Category.Name
+                        <i class="bi bi-bookmark me-1"></i> @Model.Product.Category.Name
                     </span>
                     
-                    <h1 class="h3 fw-bold mb-1">@Model.Title</h1>
+                    <h1 class="h3 fw-bold mb-1">@Model.Product.Title</h1>
                    
-                    <p class="text-secondary mb-2">by <span class="fw-medium text-dark">@Model.Author</span></p>
+                    <p class="text-secondary mb-2">by <span class="fw-medium text-dark">@Model.Product.Author</span></p>
                     
-                    <p class="text-secondary small mb-4">ISBN: @Model.ISBN</p>
+                    <p class="text-secondary small mb-4">ISBN: @Model.Product.ISBN</p>
 
                     <div class="d-flex align-items-baseline gap-2 mb-4">
                         <span class="h3 fw-bold mb-0" style="color: #17A34A;">@Model.Price.ToString("c")</span>
-                        <span class="text-decoration-line-through text-secondary">@Model.ListPrice.ToString("c")</span>
+                        <span class="text-decoration-line-through text-secondary">@Model.Product.ListPrice.ToString("c")</span>
                     </div>
 
                     <!-- Volume Discounts -->
@@ -62,14 +62,14 @@
                             <div class="col-4">
                                 <div class="bg-white border rounded p-2 shadow-sm h-100 d-flex flex-column align-items-center justify-content-center" style="border-color: rgba(23,163,74,0.3) !important;">
                                     <p class="text-uppercase text-secondary mb-1" style="font-size: 0.6rem; font-weight: 700;">51-100 Units</p>
-                                    <p class="fw-bold mb-0" style="color: #17A34A;">@Model.Price50.ToString("c")</p>
+                                    <p class="fw-bold mb-0" style="color: #17A34A;">@Model.Product.Price50.ToString("c")</p>
                                     <span class="badge mt-1" style="font-size: 0.55rem; background: rgba(23,163,74,0.1); color: #17A34A;">SAVE</span>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="bg-white border rounded p-2 shadow-sm h-100 d-flex flex-column align-items-center justify-content-center" style="border-color: #17A34A !important;">
                                     <p class="text-uppercase text-secondary mb-1" style="font-size: 0.6rem; font-weight: 700;">100+ Units</p>
-                                    <p class="fw-bold mb-0" style="color: #17A34A;">@Model.Price100.ToString("c")</p>
+                                    <p class="fw-bold mb-0" style="color: #17A34A;">@Model.Product.Price100.ToString("c")</p>
                                     <span class="badge text-white mt-1" style="font-size: 0.55rem; background: #17A34A;">BEST</span>
                                 </div>
                             </div>
@@ -77,14 +77,14 @@
                     </div>
 
                     <div class="text-secondary small mb-4">
-                       @Html.Raw(Model.Description)
+                        @Html.Raw(Model.Product.Description)
                     </div>
 
                     <div class="d-flex align-items-center gap-2">
                         <div class="input-group" style="width: 140px;">
                             <span class="input-group-text fw-semibold small" style="background: #17A34A; color: #fff;">Qty</span>
-                            <!-- TODO: Bind quantity input to model -->
-                            <input type="number" value="1" class="form-control text-center fw-medium" />
+                            
+                            <input asp-for="Count" type="number"  class="form-control text-center fw-medium" />
                         </div>
                         <button type="submit" class="btn btn-accent flex-grow-1 fw-semibold py-2">
                             <i class="bi bi-cart-plus me-1"></i> Add to Cart

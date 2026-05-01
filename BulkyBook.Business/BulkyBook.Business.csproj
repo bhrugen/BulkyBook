@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mailjet.Api" Version="4.0.0" />
+    <PackageReference Include="Stripe.net" Version="51.1.0-beta.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BulkyBook.DataAccess\BulkyBook.DataAccess.csproj" />
     <ProjectReference Include="..\BulkyBook.Models\BulkyBook.Models.csproj" />
     <ProjectReference Include="..\BulkyBook.Utiltiy\BulkyBook.Utiltiy.csproj" />

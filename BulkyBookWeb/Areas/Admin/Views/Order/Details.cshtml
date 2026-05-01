@@ -1,0 +1,247 @@
+﻿@using BulkyBook.Utiltiy
+@model OrderHeader
+@{
+    var isCustomer = User.IsInRole(SD.RoleCustomer);
+    var containerClass = isCustomer ? "container my-4 pt-3" : "container-fluid py-4";
+}
+<div class="@containerClass">
+    <form method="post">
+        <input asp-for="Id" hidden/>
+
+       
+        <a asp-action="Index" class="text-decoration-none text-secondary small fw-medium d-inline-flex align-items-center gap-1 mb-3">
+            <i class="bi bi-arrow-left"></i> Back to orders
+        </a>
+
+        <div class="card border shadow-sm overflow-hidden">
+            <div class="card-header text-white py-3 px-4" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+                <h5 class="mb-0 fw-bold">
+                    <i class="bi bi-receipt me-2"></i>Order #<span>@Model.Id</span>
+                </h5>
+                <p class="mb-0 small" style="color: #1DB954;">Placed on <span>@Model.OrderDate.ToShortDateString()</span></p>
+            </div>
+
+            <div class="card-body p-4">
+                <div class="row g-5">
+                    <!-- Left column: Shipping info -->
+                    <div class="col-lg-6">
+                        <h6 class="text-uppercase fw-semibold text-secondary mb-4" style="font-size: 0.7rem; letter-spacing: 0.1em;">
+                            Order Details
+                        </h6>
+
+                        <div class="row g-2 mb-2">
+                            <label class="col-4 col-form-label small fw-medium text-secondary">Name</label>
+                            <div class="col-8">
+                                @if (isCustomer)
+                                    {
+                                    <input asp-for="Name" disabled class="form-control form-control-sm" />
+                                    }
+                                    else{
+                                    <input asp-for="Name" class="form-control form-control-sm"  />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                                    }
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-2">
+                            <label class="col-4 col-form-label small fw-medium text-secondary">Phone</label>
+                            <div class="col-8">
+                                  @if (isCustomer)
+                                    {
+                                    <input asp-for="PhoneNumber" disabled class="form-control form-control-sm" />
+                                    }
+                                    else{
+                                <input asp-for="PhoneNumber" class="form-control form-control-sm" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                    }
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-2">
+                            <label class="col-4 col-form-label small fw-medium text-secondary">Address</label>
+                            <div class="col-8">
+                                  @if (isCustomer)
+                                    {
+                                    <input asp-for="StreetAddress" disabled class="form-control form-control-sm" />
+                                    }
+                                    else{
+                                <input asp-for="StreetAddress" class="form-control form-control-sm" />
+                                <span asp-validation-for="StreetAddress" class="text-danger small"></span>
+                                    }
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-2">
+                            <label class="col-4 col-form-label small fw-medium text-secondary">City</label>
+                            <div class="col-8">
+                                  @if (isCustomer)
+                                    {
+                                    <input asp-for="City" disabled class="form-control form-control-sm" />
+                                    }
+                                    else{
+                                <input asp-for="City" class="form-control form-control-sm" />
+                                <span asp-validation-for="City" class="text-danger small"></span>
+                                    }
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-2">
+                            <label class="col-4 col-form-label small fw-medium text-secondary">State</label>
+                            <div class="col-8">
+                                  @if (isCustomer)
+                                    {
+                                    <input asp-for="State" disabled class="form-control form-control-sm" />
+                                    }
+                                    else{
+                                <input asp-for="State" class="form-control form-control-sm" />
+                                <span asp-validation-for="State" class="text-danger small"></span>
+                                    }
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-2">
+                            <label class="col-4 col-form-label small fw-medium text-secondary">Zip Code</label>
+                            <div class="col-8">
+                                  @if (isCustomer)
+                                    {
+                                    <input asp-for="PostalCode" disabled class="form-control form-control-sm" />
+                                    }
+                                    else{
+                                <input asp-for="PostalCode" class="form-control form-control-sm" />
+                                <span asp-validation-for="PostalCode" class="text-danger small"></span>
+                                    }
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-2">
+                            <label class="col-4 col-form-label small fw-medium text-secondary">Email</label>
+                            <div class="col-8">
+                                <input asp-for="ApplicationUser.Email" disabled class="form-control form-control-sm" />
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-2">
+                            <label class="col-4 col-form-label small fw-medium text-secondary">Order Date</label>
+                            <div class="col-8">
+                                <input type="text" readonly class="form-control-plaintext form-control-sm" value="@Model.OrderDate.ToShortDateString()" />
+                            </div>
+                        </div>
+                        @if (Model.OrderStatus != SD.StatusPending && Model.OrderStatus != SD.StatusApproved)
+                            {
+                                <div class="row g-2 mb-2">
+                                    <label class="col-4 col-form-label small fw-medium text-secondary">Carrier</label>
+                                    <div class="col-8">
+                                    @if (isCustomer)
+                                    {
+                                        <input asp-for="Carrier" disabled class="form-control form-control-sm" />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="Carrier" id="carrier" class="form-control form-control-sm" />
+                                    }
+                                    </div>
+                                </div>
+
+                                <div class="row g-2 mb-2">
+                                    <label class="col-4 col-form-label small fw-medium text-secondary">Tracking</label>
+                                    <div class="col-8">
+                                    @if (isCustomer)
+                                    {
+                                        <input asp-for="TrackingNumber" disabled class="form-control form-control-sm" />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="TrackingNumber" type="text" id="trackingNumber" class="form-control form-control-sm" />
+                                    }
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.ShippingDate != default(DateTime))
+                            {
+                                <div class="row g-2 mb-2">
+                                    <label class="col-4 col-form-label small fw-medium text-secondary">Shipping Date</label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext form-control-sm" value="@Model.ShippingDate.ToShortDateString()" />
+                                    </div>
+                                </div>
+                            }
+                              @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                                    {
+                        <button asp-action="UpdateOrderDetails" type="submit" class="btn btn-accent w-100 fw-semibold mt-3">
+                            Update Order Details
+                        </button>
+                                    }
+                                    
+                        
+                    </div>
+
+                    <!-- Right column: Order summary -->
+                    <div class="col-lg-6">
+                        <h6 class="text-uppercase fw-semibold text-secondary mb-4" style="font-size: 0.7rem; letter-spacing: 0.1em;">
+                            Order Summary
+                        </h6>
+
+                        <span class="badge bg-dark mb-3">
+                            <i class="bi bi-info-circle me-1"></i> <span>@Model.OrderStatus</span>
+                           
+                        </span>
+
+                        <div class="border rounded overflow-hidden mb-4">
+                            
+
+                            @foreach (var details in Model.OrderDetails)
+                                {
+                                    <div class="d-flex justify-content-between align-items-start p-3 border-bottom">
+                                        <div>
+                                            <p class="fw-medium small mb-0">@details.Product.Title</p>
+                                            
+                                            <p class="text-secondary mb-0" style="font-size: 0.75rem;">
+                                                @details.Price.ToString("c") x @details.Count
+                                            </p>
+                                        </div>
+                                        <p class="fw-semibold small mb-0" style="color: #17A34A;">
+                                        @((details.Price * @details.Count).ToString("c"))
+                                        </p>
+                                    </div>
+                                }
+                                <div class="d-flex justify-content-between align-items-center p-3 text-white" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+                                <span class="fw-bold small text-uppercase">Total</span>
+                                <span class="fw-bold fs-5">@Model.OrderTotal.ToString("c")</span>
+                                
+                            </div>
+                        </div>
+                        @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                            {
+                                <div class="d-grid gap-2">
+                                    @if (Model.OrderStatus == SD.StatusApproved)
+                                    {
+                                        <button type="submit" asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusInProcess" class="btn btn-accent fw-semibold">
+                                        <i class="bi bi-arrow-right-circle me-1"></i>  Start Processing
+                                        </button>
+                                    }
+                                    @if (Model.OrderStatus == SD.StatusInProcess)
+                                    {
+                                        <button asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusShipped" type="submit" onclick="return validateInput()" class="btn btn-warning fw-semibold">
+                                        <i class="bi bi-truck me-1"></i>   Ship Order
+                                        </button>
+                                    }
+
+                                @if (Model.OrderStatus == SD.StatusApproved || Model.OrderStatus == SD.StatusInProcess)
+                                    {
+                                        <button  asp-action="UpdateOrderStatus" asp-route-status="@SD.StatusCancelled" type="submit" class="btn btn-danger fw-semibold">
+                                        <i class="bi bi-x-circle me-1"></i>  Cancel Order
+                                        </button>
+                                    }
+                                </div>
+                            }
+                        </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+   
+}

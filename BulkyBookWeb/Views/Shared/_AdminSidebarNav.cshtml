@@ -1,0 +1,24 @@
+﻿<div class="admin-sidebar-nav">
+    <p class="nav-section mb-1">Overview</p>
+    <!-- TODO: Add navigation links with active class logic -->
+    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link d-flex align-items-center gap-2">
+        <i class="bi bi-graph-up"></i> Dashboard
+    </a>
+
+    <p class="nav-section mb-1">Commerce</p>
+    <a asp-area="Admin" asp-controller="Order" asp-action="Index" asp-route-status="approved" class="nav-link d-flex align-items-center gap-2">
+        <i class="bi bi-truck"></i> Orders
+    </a>
+    <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="nav-link d-flex align-items-center gap-2">
+        <i class="bi bi-book"></i> Products
+    </a>
+    <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="nav-link d-flex align-items-center gap-2">
+        <i class="bi bi-tags"></i> Categories
+    </a>
+
+    <!-- TODO: Show Management section only for Admin role -->
+    <p class="nav-section mb-1">Management</p>
+    <a asp-area="Admin" asp-controller="User" asp-action="Index" class="nav-link d-flex align-items-center gap-2">
+        <i class="bi bi-people"></i> Users
+    </a>
+</div>

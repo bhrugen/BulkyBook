@@ -111,6 +111,25 @@
     display: none !important;
 }
 
+/* Remove bullets from validation error lists */
+.validation-summary-errors ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.validation-summary-errors li {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+    background-color: #fee;
+    border-left: 3px solid #dc3545;
+    border-radius: 0.25rem;
+}
+
+.validation-summary-errors li:last-child {
+    margin-bottom: 0;
+}
+
 /* Sticky sidebar for cart page (lg+ only) */
 @media (min-width: 992px) {
     .position-lg-sticky {
@@ -268,7 +287,43 @@ div.dt-container {
             box-shadow: 0 0 0 3px rgba(23, 163, 74, 0.12) !important;
             background: #fff !important;
         }
+/* DataTables 2.x Layout Fix - Ensure controls stay on same row */
+div.dt-layout-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
 
+div.dt-layout-cell {
+    flex: 0 0 auto;
+}
+
+div.dt-layout-start {
+    flex: 0 0 auto;
+}
+
+div.dt-layout-end {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+/* Ensure length and search controls display inline */
+div.dt-length,
+div.dt-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Prevent wrapping on larger screens */
+@media (min-width: 768px) {
+    div.dt-layout-row {
+        flex-wrap: nowrap;
+    }
+}
 /* Table */
 table.dataTable {
     border-collapse: collapse !important;
@@ -958,6 +1013,23 @@ div.dt-container div.dt-info {
         background: #1e1e1e !important;
     }
 
+.cart-btn {
+    transition: all 0.3s ease;
+}
+
+    .cart-btn:hover {
+        background: rgba(255,255,255,0.12) !important;
+        transform: translateY(-2px);
+        border-color: rgba(255,255,255,0.25) !important;
+    }
+
+        .cart-btn:hover .cart-icon-circle {
+            background: rgba(23, 163, 74, 0.8) !important;
+        }
+
+    .cart-btn:hover {
+        color: #17A34A !important;
+    }
 /* Theme toggle animation */
 #themeToggle {
     transition: transform 0.3s ease;

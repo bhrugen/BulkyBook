@@ -1,0 +1,111 @@
+﻿@using BulkyBook.Utiltiy
+@model RegisterVM
+
+
+<div class="container mb-4">
+    <div class="row justify-content-center mt-5 mb-5">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-sm border overflow-hidden">
+                <div class="card-header text-white py-3 px-4 text-center" style="background: linear-gradient(to right, #065f46, #282828, #191414);">
+                    <i class="bi bi-person-plus-fill display-4"></i>
+                    <h4 class="fw-bold mt-2 mb-1">Create Account</h4>
+                    <p class="mb-0 small" style="color: #1DB954;">Join us today</p>
+                </div>
+
+                <div class="card-body p-5">
+                    <form method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Name" class="form-label"></label>
+                                <input asp-for="Name" class="form-control form-control-lg" placeholder="John Doe" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control form-control-lg" placeholder="name@example.com" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Password" class="form-label"></label>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="••••••••" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ConfirmPassword" class="form-label"></label>
+                                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="••••••••" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="PhoneNumber" class="form-label"></label>
+                            <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="(123) 456-7890" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="StreetAddress" class="form-label"></label>
+                            <input asp-for="StreetAddress" type="text" class="form-control" placeholder="123 Main St" />
+                            <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label asp-for="City" class="form-label"></label>
+                                <input asp-for ="City" type="text" class="form-control" placeholder="New York" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="State" class="form-label"></label>
+                                <input asp-for="State" type="text" class="form-control" placeholder="NY" />
+                                <span asp-validation-for="State" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label asp-for="PostalCode" class="form-label"></label>
+                                <input asp-for="PostalCode" type="text" class="form-control" placeholder="10001" />
+                                <span asp-validation-for="PostalCode" class="text-danger"></span>
+                            </div>
+                            @if (User.IsInRole(SD.RoleAdmin))
+                                {
+                                    <div class="col-md-12 mb-3">
+                                        <label asp-for="Role" class="form-label"></label>
+                                        <select asp-for="Role" asp-items="@Model.RoleList"  class="form-select" >
+                                            <option disabled selected>- Select Role -</option>
+                                        </select>
+                                    </div>
+                                }
+                            </div>
+
+                        <button type="submit" class="btn btn-accent btn-lg w-100 mb-3">
+                            <i class="bi bi-person-check me-2"></i>Register
+                        </button>
+                    </form>
+
+                    <hr class="my-4" />
+
+                    <div class="text-center">
+                        <p class="mb-0">Already have an account? 
+                            <a asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]"
+                            class="fw-semibold text-decoration-none" style="color: #17A34A;">Log in
+                        </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                            
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

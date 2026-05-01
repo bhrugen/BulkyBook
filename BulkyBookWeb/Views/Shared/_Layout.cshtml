@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BulkyBook.Utiltiy
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,7 +17,7 @@
     <header class="sticky-top">
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#191414">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center gap-2" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-area="customer" asp-controller="Home" asp-action="Index">
                     <div class="d-flex align-items-center justify-content-center rounded" style="width: 36px; height: 36px; background: rgba(255,255,255,0.2);">
                         <img src="/images/book.png" style="width: 24px; height: 24px;" />
                     </div>
@@ -30,18 +31,29 @@
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav  me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
-                        </li>
-                    </ul>
+                        @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                         <i class="bi bi-box-seam me-1"></i> My Orders</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                                        <i class="bi bi-speedometer2 me-1"></i>Admin Portal
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    <div class="d-flex align-items-center gap-3">
+                        
+                        @await Component.InvokeAsync("CartCount");
+                      <partial name="_LoginPartial"/>
+                    </div>
                 </div>
             </div>
         </nav>
