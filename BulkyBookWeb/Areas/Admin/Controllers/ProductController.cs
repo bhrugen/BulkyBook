@@ -68,7 +68,19 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
               
                 if (file != null)
                 {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+                    if (productVM.Product.Id > 0)
+                    {
+                        //updating
+
+                        if(!string.IsNullOrEmpty(productVM.Product.ImageUrl))
+                        {
+                            await _blobStorageService.DeleteImageAsync(productVM.Product.ImageUrl);
+                        }
+                    }
+
+
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                    
                     //save the new image
                     using (var fileStream =  file.OpenReadStream())
@@ -82,15 +94,16 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 {
                     //create
                     await _productService.CreateProductAsync(productVM.Product);
+                    TempData["success"] = "Product created successfully";
                 }
                 else
                 {
                     await _productService.UpdateProductAsync(productVM.Product);
-                    
+                    TempData["success"] = "Product updated successfully";
                 }
 
                
-                TempData["success"] = "Product updated successfully";
+                
                 return RedirectToAction("Index");
             }
             else
