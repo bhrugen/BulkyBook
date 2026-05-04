@@ -15,13 +15,13 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IBlobStorageService _blobStorageService;
         private readonly ICategoryService _categoryService;
-        public ProductController(IProductService productService, ICategoryService categoryService, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IProductService productService, ICategoryService categoryService, IBlobStorageService blobStorageService)
         {
             _productService = productService;
             _categoryService = categoryService;
-            _webHostEnvironment = webHostEnvironment;
+        _blobStorageService= blobStorageService;    
         }
 
         [AllowAnonymous]
@@ -65,25 +65,17 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
 
-                string wwwRootPath = _webHostEnvironment.WebRootPath;
-
+              
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string productPath = Path.Combine("images", "products");
-                    string finalPath = Path.Combine(wwwRootPath, productPath);
-
-
-                    if (!Directory.Exists(finalPath))
-                        Directory.CreateDirectory(finalPath);
-
+                   
                     //save the new image
-                    using (var fileStream = new FileStream(Path.Combine(finalPath, fileName), FileMode.Create))
+                    using (var fileStream =  file.OpenReadStream())
                     {
-                        file.CopyTo(fileStream);
+                        var imageUrl = await _blobStorageService.UploadImageAsync(fileStream, fileName, file.ContentType);
+                        productVM.Product.ImageUrl = imageUrl;
                     }
-
-                    productVM.Product.ImageUrl = Path.Combine(@"\", productPath, fileName).Replace("\\", "/");
                 }
 
                 if (productVM.Product.Id == null || productVM.Product.Id == 0)
@@ -98,7 +90,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 }
 
                
-                TempData["success"] = "Product created successfully";
+                TempData["success"] = "Product updated successfully";
                 return RedirectToAction("Index");
             }
             else
@@ -150,14 +142,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             //delete product image if that exists
             if (!string.IsNullOrEmpty(productToBeDeleted.ImageUrl))
             {
-                var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\','/'));
-
-                if (System.IO.File.Exists(imagePath))
-                {
-                    System.IO.File.Delete(imagePath);
-                }
+               await _blobStorageService.DeleteImageAsync(productToBeDeleted.ImageUrl);
             }
-
 
             await _productService.DeleteProductAsync(id.Value);
             return Json(new { success = true, message = "Delete Successful" });
