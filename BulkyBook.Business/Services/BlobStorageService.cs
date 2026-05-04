@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using BulkyBook.Business.Services.IServices;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -20,14 +21,34 @@ namespace BulkyBook.Business.Services
             _containerClient = blobServiceClient.GetBlobContainerClient(containerName);
         }
 
-        public Task DeleteImageAsync(string imageUrl)
+        public async Task DeleteImageAsync(string imageUrl)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(imageUrl))
+                return;
+
+            try
+            {
+                var blobName = Path.GetFileName(new Uri(imageUrl).LocalPath);
+                await _containerClient.GetBlobClient(blobName).DeleteIfExistsAsync();
+            }
+            catch
+            {
+                // Silently handle deletion errors
+            }
+
         }
 
-        public Task<string> UploadImageAsync(Stream fileStream, string fileName, string contentType)
+        public async Task<string> UploadImageAsync(Stream fileStream, string fileName, string contentType)
         {
-            throw new NotImplementedException();
+            await _containerClient.CreateIfNotExistsAsync(PublicAccessType.BlobContainer);
+
+            var blobClient = _containerClient.GetBlobClient(fileName);
+
+            await blobClient.UploadAsync(fileStream, new BlobUploadOptions
+            {
+                HttpHeaders = new BlobHttpHeaders { ContentType = contentType }
+            });
+            return blobClient.Uri.ToString();
         }
     }
 }
