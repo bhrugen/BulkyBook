@@ -6,7 +6,7 @@ namespace BulkyBook.Models
     public class Category
     {
         //[Key]
-        public int Id { get; set; }ss
+        public int Id { get; set; }
         [Required]
         [StringLength(100)]
         [Display(Name ="Category Name")]
